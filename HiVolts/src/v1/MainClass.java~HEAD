@@ -19,7 +19,7 @@ package v1;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
-public class FirstClass {
+public class MainClass {
 
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;

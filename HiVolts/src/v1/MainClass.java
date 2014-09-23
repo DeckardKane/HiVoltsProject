@@ -16,10 +16,21 @@
 
 package v1;
 
-import java.awt.Dimension;
-import javax.swing.JFrame;
+import java.awt.Component;
 
-public class MainClass {
+import java.awt.Dimension;
+
+//Changing this to just include the entire swing library.
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+import java.io.*;
+
+public class MainClass extends JPanel{
+	
+	public void keyListener() {
+		component.setFocusTraversalKeysEnabled(false);
+	}
 
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;
@@ -32,5 +43,10 @@ public class MainClass {
 		f.setTitle("HiVolts");
 		f.add(display);
 		f.setVisible(true);
+	}
+	
+	public boolean isAlive() {
+		boolean retval = true;
+		return retval;
 	}
 }
