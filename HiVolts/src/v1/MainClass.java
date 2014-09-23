@@ -17,6 +17,7 @@
 package v1;
 
 import java.awt.Component;
+
 import java.awt.Dimension;
 
 //Changing this to just include the entire swing library.
@@ -26,11 +27,11 @@ import java.util.*;
 import java.io.*;
 
 public class MainClass extends JPanel{
-	/*
+	
 	public void keyListener() {
 		component.setFocusTraversalKeysEnabled(false);
 	}
-*/
+
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;
 		final int WIDTH = 1000;
@@ -48,5 +49,4 @@ public class MainClass extends JPanel{
 		boolean retval = true;
 		return retval;
 	}
-	
 }
