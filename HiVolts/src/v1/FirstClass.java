@@ -16,11 +16,20 @@
 
 package v1;
 
+import java.awt.Component;
 import java.awt.Dimension;
-import javax.swing.JFrame;
 
-public class FirstClass {
+//Changing this to just include the entire swing library.
+import javax.swing.*;
+import java.awt.event.*;
+import java util.*;
+import java.io.*;
 
+public class FirstClass extends JPanel{
+
+	public void keyListener() {
+		component.setFocusTraversalKeysEnabled(false);
+	}
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;
 		final int WIDTH = 1000;
@@ -33,4 +42,10 @@ public class FirstClass {
 		f.add(display);
 		f.setVisible(true);
 	}
+	
+	public boolean isAlive() {
+		boolean retval = true;
+		return retval;
+	}
+	
 }
