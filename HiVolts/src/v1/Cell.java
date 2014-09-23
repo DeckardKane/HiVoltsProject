@@ -6,12 +6,34 @@ import javax.swing.ImageIcon;
 public class Cell {
 	private int myX, myY;
 	private Color myColor;
-	private final Color DEFAULT_ALIVE = Color.ORANGE;
-	private final Color DEFAULT_DEAD = Color.GRAY;
-	private String type;
-	ImageIcon Smiley = new ImageIcon("Smiley.png") 
+	private boolean myAlive; 
+	private String myType;
+	ImageIcon Smiley = new ImageIcon("Smiley.png"); 
 	
+	
+	public Cell(int row, int col, boolean alive, String type) {
+		myAlive = alive;
+		myType = type;
+		myX = col;
+		myY = row;
+	}
+	
+	
+	public boolean getAlive() {
+		return myAlive;
+	}
 
+	public int getX() {
+		return myX;
+	}
+
+	public int getY() {
+		return myY;
+	}
+	public String getType(){
+		return myType;
+	}
+	
 	//Kuszmaul's Example. Not needed right now. 
 	private int RandomNumberInRange(int start, int end){
 		double randd = Math.random();
