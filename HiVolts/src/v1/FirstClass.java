@@ -22,10 +22,10 @@ import javax.swing.JFrame;
 public class FirstClass {
 
 	public static void main(String[] args) {
-		final int HEIGHT = 864;
-		final int WIDTH = 864;
+		final int DISPLAY_HEIGHT = 864;
+		final int DISPLAY_WIDTH = 864;
 		JFrame f = new JFrame();
-		f.setSize(WIDTH, HEIGHT);
+		f.setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		GameFrame display = new GameFrame();
 		f.setLayout(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
