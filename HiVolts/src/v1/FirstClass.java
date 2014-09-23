@@ -22,11 +22,11 @@ import javax.swing.JFrame;
 public class FirstClass {
 
 	public static void main(String[] args) {
-		final int DISPLAY_HEIGHT = 864;
-		final int DISPLAY_WIDTH = 864;
+		final int HEIGHT = 1000;
+		final int WIDTH = 1000;
 		JFrame f = new JFrame();
-		f.setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-		GameFrame display = new GameFrame();
+		f.setSize(WIDTH, HEIGHT);
+		GameFrame display = new GameFrame(WIDTH, HEIGHT);
 		f.setLayout(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setTitle("HiVolts");
