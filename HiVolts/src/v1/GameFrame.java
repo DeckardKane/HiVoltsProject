@@ -12,7 +12,7 @@ public class GameFrame extends JComponent {
 	
 	private final int CELL_WIDTH = 72;
 	private final int CELL_HEIGHT = 72; 
-	private final int X_GRID_OFFSET = 25; // 25 pixels from left
+	private final int X_GRID_OFFSET = 50; // 25 pixels from left
 	private final int Y_GRID_OFFSET = 40; // 40 pixels from top
 	private final int DISPLAY_WIDTH;   
 	private final int DISPLAY_HEIGHT;
@@ -44,3 +44,4 @@ public class GameFrame extends JComponent {
 		}
 	}
 }
+
