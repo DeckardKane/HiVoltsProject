@@ -20,17 +20,13 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class FirstClass {
-	
-	private static final int HEIGHT = 864;
-	private static final int WIDTH = 864;
 
 	public static void main(String[] args) {
-		
-		JFrame frame = new Jframe();
-		GameFrame f = new GameFrame();
-		frame.add(c);
+		final int HEIGHT = 864;
+		final int WIDTH = 864;
+		JFrame f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
-		Display display = new Display(WIDTH, HEIGHT);
+		GameFrame display = new GameFrame();
 		f.setLayout(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setTitle("HiVolts");
