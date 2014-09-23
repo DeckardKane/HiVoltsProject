@@ -44,9 +44,4 @@ public class MainClass extends JPanel{
 		f.add(display);
 		f.setVisible(true);
 	}
-	
-	public boolean isAlive() {
-		boolean retval = true;
-		return retval;
-	}
 }

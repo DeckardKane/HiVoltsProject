@@ -11,10 +11,7 @@ public class Cell {
 	private String type;
 	ImageIcon Smiley = new ImageIcon("Smiley.png") 
 	
-//	if(Type == "Smiley"){
-//		
-//	}
-		
+
 	//Kuszmaul's Example. Not needed right now. 
 	private int RandomNumberInRange(int start, int end){
 		double randd = Math.random();
