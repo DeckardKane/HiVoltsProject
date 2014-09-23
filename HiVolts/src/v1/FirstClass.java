@@ -1,4 +1,4 @@
-/* Hello! The authors of this code are: Mischa Laava, Peter Turnbull, and Przemek Gardias
+/* Hello! The authors of this code are: Misha Lavva, Peter Turnbull, and Przemek Gardias
  * 
  * Other contributors/helpers:
  * 
@@ -16,8 +16,25 @@
 
 package v1;
 
+import java.awt.Dimension;
+import javax.swing.JFrame;
+
 public class FirstClass {
+	
+	private static final int HEIGHT = 864;
+	private static final int WIDTH = 864;
+
 	public static void main(String[] args) {
-		System.out.println("It's alive!");
+		
+		JFrame frame = new Jframe();
+		GameFrame f = new GameFrame();
+		frame.add(c);
+		f.setSize(WIDTH, HEIGHT);
+		Display display = new Display(WIDTH, HEIGHT);
+		f.setLayout(null);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setTitle("HiVolts");
+		f.add(display);
+		f.setVisible(true);
 	}
 }
