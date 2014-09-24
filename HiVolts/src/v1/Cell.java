@@ -9,7 +9,7 @@ public class Cell {
 	private final Color DEFAULT_ALIVE = Color.ORANGE;
 	private final Color DEFAULT_DEAD = Color.GRAY;
 	private String type;
-	ImageIcon Smiley = new ImageIcon("Smiley.png") 
+	ImageIcon Smiley = new ImageIcon("Smiley.png"); 
 	
 
 	//Kuszmaul's Example. Not needed right now. 
