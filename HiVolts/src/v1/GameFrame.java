@@ -28,13 +28,13 @@ public class GameFrame extends JComponent {
 		repaint();
 	}
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(1000,1000,0,0);
-	//	Grid(g);
+		g.setColor(BROWN);
+		g.fillRect(50,40,876,876);
+		Grid(g);
 	}
 
 	void Grid(Graphics g){
-		
+		g.setColor(Color.WHITE);
 		for (int row = 0; row <= ROWS; row++) {
 			g.drawLine(X_GRID_OFFSET,
 					Y_GRID_OFFSET + (row * (CELL_HEIGHT + 1)), X_GRID_OFFSET
