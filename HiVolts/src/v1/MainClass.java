@@ -25,13 +25,12 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-public class MainClass extends JPanel {
-	private static final long serialVersionUID = 1L;
-
+public class MainClass extends JPanel{
 	/*
-	 * public void keyListener() {
-	 * component.setFocusTraversalKeysEnabled(false); }
-	 */
+	public void keyListener() {
+		component.setFocusTraversalKeysEnabled(false);
+	}
+*/
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;
 		final int WIDTH = 1000;
@@ -44,10 +43,10 @@ public class MainClass extends JPanel {
 		f.add(display);
 		f.setVisible(true);
 	}
-
+	
 	public boolean isAlive() {
 		boolean retval = true;
 		return retval;
 	}
-
+	
 }
