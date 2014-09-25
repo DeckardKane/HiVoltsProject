@@ -15,6 +15,8 @@ public class GameFrame extends JComponent {
 	private final int CELL_HEIGHT = 72;
 	private final int X_GRID_OFFSET = 50; // 25 pixels from left
 	private final int Y_GRID_OFFSET = 40; // 40 pixels from top
+	private final int COL_COUNT = 13;
+	private final int ROW_COUNT = 13;
 	private final int DISPLAY_WIDTH;
 	private final int DISPLAY_HEIGHT;
 	private final Color BROWN = new Color(0X5C4033);
@@ -32,11 +34,13 @@ public class GameFrame extends JComponent {
 
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(1000, 1000, 0, 0);
-		Grid(g);
+		g.fillRect(X_GRID_OFFSET, Y_GRID_OFFSET, (CELL_WIDTH * 12)
+				+ (1 * COL_COUNT), (CELL_HEIGHT * 12) + (1 * ROW_COUNT));
+		g.setColor(Color.WHITE);
+		drawGrid(g);
 	}
 
-	void Grid(Graphics g) {
+	void drawGrid(Graphics g) {
 
 		for (int row = 0; row <= ROWS; row++) {
 			g.drawLine(X_GRID_OFFSET,
