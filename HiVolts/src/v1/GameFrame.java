@@ -2,7 +2,9 @@ package v1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
 import javax.swing.JComponent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,7 +40,7 @@ public class GameFrame extends JComponent {
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
 				cell[row][col] = new Cell(row, col);
-				
+
 			}
 		}
 	}
@@ -46,9 +48,11 @@ public class GameFrame extends JComponent {
 	void drawCells(Graphics g) {
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
-			cell[row][col].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH, CELL_HEIGHT, g);
-		}
-			cell[3][2].setSmiley(true);
+				cell[row][col].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
+						CELL_HEIGHT, g);
+			}
+			cell[RandomNumberInRange(0, 11)][RandomNumberInRange(0, 11)]
+					.setSmiley(true);
 		}
 	}
 
@@ -59,6 +63,13 @@ public class GameFrame extends JComponent {
 		g.setColor(Color.WHITE);
 		drawGrid(g);
 		drawCells(g);
+	}
+
+	private int RandomNumberInRange(int start, int end) {
+		double randd = Math.random();
+		randd *= (end - start + 1);
+		randd += start;
+		return (int) randd;
 	}
 
 	void drawGrid(Graphics g) {
