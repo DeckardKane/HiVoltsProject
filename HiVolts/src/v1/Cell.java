@@ -7,19 +7,34 @@ import javax.swing.JPanel;
 
 public class Cell extends JPanel {
 	private int myX, myY;
+	
 	private Color myColor;
 	private boolean myAlive; 
+	
 	private String myType;
+	
+	private final Color SMILEY = Color.ORANGE;
+	private final Color DEFAULT_DEAD = Color.GRAY;
+	
 	ImageIcon Smiley = new ImageIcon("Smiley.png"); 
 	ImageIcon Sad = new ImageIcon("SadFace.png");
 	ImageIcon Fence = new ImageIcon("Fence.jpg");
 	public Cell(int x, int y){
-		this(x,y,null);
+		this(x,y,Color.BLACK,null);
 	}
-	public Cell(int row, int col, String type) {
+	public Color getColor() {
+		return myColor;
+	}
+	public Cell(int row, int col, Color color, String type) {
 		myType = type;
 		myX = col;
+		myColor = color;
 		myY = row;
+	}
+	public void setSmiley(Boolean Smiley){
+		if(Smiley == true){
+			myColor = Color.ORANGE;
+		}
 	}
 	public String getType(){
 		return myType;
@@ -54,4 +69,11 @@ public class Cell extends JPanel {
 		randd += start; 
 		return (int) randd; 
 	}
+	public void draw (int xOffset, int yOffset, int width, int height, Graphics g) {
+		// I leave this understanding to the reader.
+		int xLeft = xOffset + 1 + (myX * (width + 1));
+		int yTop = yOffset + 1 + (myY * (height + 1));
+		g.setColor(myColor);
+		g.fillRect(xLeft, yTop, width, height);
+}
 }
