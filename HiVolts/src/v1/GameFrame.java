@@ -34,6 +34,7 @@ public class GameFrame extends JComponent {
 		setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		repaint();
 		initCells();
+		repaint();
 	}
 
 	public void initCells() {
@@ -43,20 +44,20 @@ public class GameFrame extends JComponent {
 
 			}
 		}
+		cell[RandomNumberInRange(0, 11)][RandomNumberInRange(0, 11)]
+				.setSmiley(true);
 	}
-
 	void drawCells(Graphics g) {
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
 				cell[row][col].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 						CELL_HEIGHT, g);
 			}
-			cell[RandomNumberInRange(0, 11)][RandomNumberInRange(0, 11)]
-					.setSmiley(true);
 		}
 	}
 
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		g.setColor(Color.BLACK);
 		g.fillRect(X_GRID_OFFSET, Y_GRID_OFFSET, (CELL_WIDTH * 12)
 				+ (1 * COL_COUNT), (CELL_HEIGHT * 12) + (1 * ROW_COUNT));
