@@ -21,29 +21,29 @@ public class HVListener {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				printEventInfo("Key Pressed", e);
+				printEventInfo("Key Pressed ", e);
 				if (e.getKeyChar() == KeyEvent.VK_Q) {
 
 				}
-				if (e.getKeyChar() == KeyEvent.VK_W) {
+				if (e.getKeyChar() == KeyEvent.VK_W || e.getKeyChar() == KeyEvent.VK_UP) {
 
 				}
 				if (e.getKeyChar() == KeyEvent.VK_E) {
 
 				}
-				if (e.getKeyChar() == KeyEvent.VK_A) {
+				if (e.getKeyChar() == KeyEvent.VK_A || e.getKeyChar() == KeyEvent.VK_LEFT) {
 
 				}
 				if (e.getKeyChar() == KeyEvent.VK_S) {
 
 				}
-				if (e.getKeyChar() == KeyEvent.VK_D) {
+				if (e.getKeyChar() == KeyEvent.VK_D || e.getKeyChar() == KeyEvent.VK_RIGHT) {
 
 				}
 				if (e.getKeyChar() == KeyEvent.VK_Z) {
 
 				}
-				if (e.getKeyChar() == KeyEvent.VK_X) {
+				if (e.getKeyChar() == KeyEvent.VK_X || e.getKeyChar() == KeyEvent.VK_DOWN) {
 
 				}
 				if (e.getKeyChar() == KeyEvent.VK_C) {
@@ -59,12 +59,12 @@ public class HVListener {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				printEventInfo("Key Released", e);
+				printEventInfo("Key Released ", e);
 			}
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-				printEventInfo("Key Typed", e);
+				printEventInfo("Key Typed ", e);
 			}
 
 			private void printEventInfo(String str, KeyEvent e) {
