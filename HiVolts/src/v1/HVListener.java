@@ -13,6 +13,62 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 public class HVListener {
+	static int myXPosition = 0;
+	static int myYPosition = 0;
+	static int turnCount = 0;
+
+	public static void moveUpLeft() {
+		myXPosition--;
+		myYPosition++;
+		turnCount++;
+	}
+
+	public static void moveUp() {
+		myYPosition++;
+		turnCount++;
+	}
+
+	public static void moveUpRight() {
+		myXPosition++;
+		myYPosition++;
+		turnCount++;
+	}
+
+	public static void moveLeft() {
+		myXPosition--;
+		turnCount++;
+	}
+
+	public static void sit() {
+		turnCount++;
+	}
+
+	public static void moveRight() {
+		myYPosition++;
+		turnCount++;
+	}
+
+	public static void moveDownLeft() {
+		myXPosition--;
+		myYPosition--;
+		turnCount++;
+	}
+
+	public static void moveDown() {
+		myYPosition--;
+		turnCount++;
+	}
+
+	public static void moveDownRight() {
+		myXPosition++;
+		myYPosition--;
+		turnCount++;
+	}
+
+	public static void jump() {
+		// Random position
+		turnCount++;
+	}
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Key Listener");
@@ -23,36 +79,31 @@ public class HVListener {
 			public void keyPressed(KeyEvent e) {
 				printEventInfo("Key Pressed ", e);
 				if (e.getKeyChar() == KeyEvent.VK_Q) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_W || e.getKeyChar() == KeyEvent.VK_UP) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_E) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_A || e.getKeyChar() == KeyEvent.VK_LEFT) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_S) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_D || e.getKeyChar() == KeyEvent.VK_RIGHT) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_Z) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_X || e.getKeyChar() == KeyEvent.VK_DOWN) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_C) {
-
-				}
-				if (e.getKeyChar() == KeyEvent.VK_J) {
-
-				}
-				else {
+					moveUpLeft();
+				} else if (e.getKeyChar() == KeyEvent.VK_W
+						|| e.getKeyChar() == KeyEvent.VK_UP) {
+					moveUp();
+				} else if (e.getKeyChar() == KeyEvent.VK_E) {
+					moveUpRight();
+				} else if (e.getKeyChar() == KeyEvent.VK_A
+						|| e.getKeyChar() == KeyEvent.VK_LEFT) {
+					moveLeft();
+				} else if (e.getKeyChar() == KeyEvent.VK_S) {
+					sit();
+				} else if (e.getKeyChar() == KeyEvent.VK_D
+						|| e.getKeyChar() == KeyEvent.VK_RIGHT) {
+					moveRight();
+				} else if (e.getKeyChar() == KeyEvent.VK_Z) {
+					moveDownLeft();
+				} else if (e.getKeyChar() == KeyEvent.VK_X
+						|| e.getKeyChar() == KeyEvent.VK_DOWN) {
+					moveDown();
+				} else if (e.getKeyChar() == KeyEvent.VK_C) {
+					moveDownRight();
+				} else if (e.getKeyChar() == KeyEvent.VK_J
+						|| e.getKeyChar() == KeyEvent.VK_SPACE) {
+					jump();
+				} else {
 					System.out.println("Key pressed was invalid.");
 				}
 			}
