@@ -18,12 +18,11 @@ public class HVListener {
 		JFrame frame = new JFrame("Key Listener");
 		Container contentPane = frame.getContentPane();
 		KeyListener listener = new KeyListener() {
-
 			@Override
 			public void keyPressed(KeyEvent e) {
 				printEventInfo("Key Pressed ", e);
 				if (e.getKeyChar() == KeyEvent.VK_Q) {
-
+					
 				}
 				if (e.getKeyChar() == KeyEvent.VK_W || e.getKeyChar() == KeyEvent.VK_UP) {
 
