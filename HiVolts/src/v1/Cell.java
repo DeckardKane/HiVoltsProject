@@ -15,7 +15,8 @@ public class Cell extends JPanel {
 	private String myType;
 
 	private final Color SMILEY = Color.ORANGE;
-	private final Color DEFAULT_DEAD = Color.GRAY;
+	private final Color FENCE = Color.GRAY;
+	private final Color MOO = Color.GREEN;
 
 	ImageIcon Smiley = new ImageIcon("Smiley.png");
 	ImageIcon Sad = new ImageIcon("SadFace.png");
@@ -38,10 +39,20 @@ public class Cell extends JPanel {
 
 	public void setSmiley(Boolean Smiley) {
 		if (Smiley == true) {
-			myColor = Color.ORANGE;
+			myColor = SMILEY;
 		}
 	}
-
+	public void setFence (Boolean Fence) {
+		if (Fence == true) {
+			myColor = FENCE;
+		}
+	}
+	public void setMoo (Boolean Moo) {
+		if (Moo == true) {
+			myColor = MOO;
+		}
+	}
+	
 	public String getType() {
 		return myType;
 	}
@@ -69,3 +80,5 @@ public class Cell extends JPanel {
 		g.fillRect(xLeft, yTop, width, height);
 	}
 }
+
+
