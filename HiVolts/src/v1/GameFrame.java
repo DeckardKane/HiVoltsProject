@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class GameFrame extends JComponent {
 
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 
 	public static final int ROWS = 14;
 	public static final int COLS = 14;
@@ -19,11 +20,16 @@ public class GameFrame extends JComponent {
 	public static Cell[][] cell = new Cell[ROWS][COLS];;
 	ArrayList<Integer> GeneratedX = new ArrayList<Integer>();
 	ArrayList<Double> GeneratedY = new ArrayList<Double>();
+=======
+	public static final int ROWS = 12;
+	public static final int COLS = 12;
+	public static Cell[][] cell = new Cell[ROWS][COLS];
+>>>>>>> origin/master
 
-	private final int CELL_WIDTH = 57;
-	private final int CELL_HEIGHT = 57;
-	private final int X_GRID_OFFSET = 80; // 25 pixels from left
-	private final int Y_GRID_OFFSET = 70; // 40 pixels from top
+	private final int CELL_WIDTH = 72;
+	private final int CELL_HEIGHT = 72;
+	private final int X_GRID_OFFSET = 50; // 25 pixels from left
+	private final int Y_GRID_OFFSET = 40; // 40 pixels from top
 	private final int COL_COUNT = 13;
 	private final int ROW_COUNT = 13;
 	private final int DISPLAY_WIDTH;
@@ -46,8 +52,10 @@ public class GameFrame extends JComponent {
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
 				cell[row][col] = new Cell(row, col);
+
 			}
 		}
+<<<<<<< HEAD
 		cell[RandomNumberInRangeX(1, 12)][RandomNumberInRangeY(1, 12)]
 				.setSmiley(true);
 		for (int i = 0; i < 20; i++) {
@@ -66,8 +74,11 @@ public class GameFrame extends JComponent {
 				cell[13][y].setFence(true);
 			}
 		}
+=======
+		cell[RandomNumberInRange(0, 11)][RandomNumberInRange(0, 11)]
+				.setSmiley(true);
+>>>>>>> origin/master
 	}
-
 	void drawCells(Graphics g) {
 		for (int row = 0; row < ROWS; row++) {
 			for (int col = 0; col < COLS; col++) {
@@ -112,8 +123,12 @@ public class GameFrame extends JComponent {
 		double randd = Math.random();
 		randd *= (end - start + 1);
 		randd += start;
+<<<<<<< HEAD
 		int intRandd = (int) randd;
 		return TestY(intRandd);
+=======
+		return (int) randd;
+>>>>>>> origin/master
 	}
 
 	void drawGrid(Graphics g) {

@@ -2,10 +2,11 @@ package v1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Cell extends HVListener {
+public class Cell extends JPanel {
 	private int myX, myY;
 
 	private Color myColor;
@@ -14,9 +15,7 @@ public class Cell extends HVListener {
 	private String myType;
 
 	private final Color SMILEY = Color.ORANGE;
-	private final Color FENCE = Color.GRAY;
-	private final Color MOO = Color.GREEN;
-	
+	private final Color DEFAULT_DEAD = Color.GRAY;
 
 	ImageIcon Smiley = new ImageIcon("Smiley.png");
 	ImageIcon Sad = new ImageIcon("SadFace.png");
@@ -39,20 +38,9 @@ public class Cell extends HVListener {
 
 	public void setSmiley(Boolean Smiley) {
 		if (Smiley == true) {
-			myColor = SMILEY;
+			myColor = Color.ORANGE;
 		}
 	}
-	public void setFence (Boolean Fence) {
-		if (Fence == true) {
-			myColor = FENCE;
-		}
-	}
-	public void setMoo (Boolean Moo) {
-		if (Moo == true) {
-			myColor = MOO;
-		}
-	}
-	
 
 	public String getType() {
 		return myType;
@@ -64,7 +52,6 @@ public class Cell extends HVListener {
 	 * } if(myType == "Sad"){ setImage("SadFace.png"); } if(myType == "Fence"){
 	 * setImage("Fence.jpg"); } }
 	 */
-	
 	public int getX() {
 		return myX;
 	}
