@@ -7,13 +7,18 @@ import javax.swing.JComponent;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GameFrame extends JComponent {
 
 	private static final long serialVersionUID = 1L;
+
 	public static final int ROWS = 14;
 	public static final int COLS = 14;
-	public static Cell[][] cell = new Cell[ROWS][COLS]; 
+
+	public static Cell[][] cell = new Cell[ROWS][COLS];;
+	ArrayList<Integer> GeneratedX = new ArrayList<Integer>();
+	ArrayList<Double> GeneratedY = new ArrayList<Double>();
 
 	private final int CELL_WIDTH = 57;
 	private final int CELL_HEIGHT = 57;
@@ -43,13 +48,14 @@ public class GameFrame extends JComponent {
 				cell[row][col] = new Cell(row, col);
 			}
 		}
-		cell[RandomNumberInRange(1, 12)][RandomNumberInRange(1, 12)].setSmiley(true);
+		cell[RandomNumberInRangeX(1, 12)][RandomNumberInRangeY(1, 12)]
+				.setSmiley(true);
 		for (int i = 0; i < 20; i++) {
-			cell[RandomNumberInRange(1, 12)][RandomNumberInRange(1, 12)]
+			cell[RandomNumberInRangeX(1, 12)][RandomNumberInRangeY(1, 12)]
 					.setFence(true);
 		}
 		for (int i = 0; i < 12; i++) {
-			cell[RandomNumberInRange(1, 12)][RandomNumberInRange(1, 12)]
+			cell[RandomNumberInRangeX(1, 12)][RandomNumberInRangeY(1, 12)]
 					.setMoo(true);
 		}
 		for (int x = 0; x < 14; x++) {
@@ -80,13 +86,34 @@ public class GameFrame extends JComponent {
 		drawGrid(g);
 		drawCells(g);
 	}
-
-	private int RandomNumberInRange(int start, int end) {
+	private int TestX(int randd) {
+		if (GeneratedX.contains(randd)) {
+			return RandomNumberInRangeX(1, 12);
+		} else {
+			return randd;
+		}
+	}
+	
+	private int RandomNumberInRangeX(int start, int end) {
 		double randd = Math.random();
 		randd *= (end - start + 1);
 		randd += start;
-		
-		return (int) randd;
+		int intRandd = (int) randd;
+		return TestX(intRandd);
+	}
+	private int TestY(int randd) {
+		if (GeneratedY.contains(randd)) {
+			return RandomNumberInRangeX(1, 12);
+		} else {
+			return randd;
+		}
+	}
+	private int RandomNumberInRangeY(int start, int end) {
+		double randd = Math.random();
+		randd *= (end - start + 1);
+		randd += start;
+		int intRandd = (int) randd;
+		return TestY(intRandd);
 	}
 
 	void drawGrid(Graphics g) {
