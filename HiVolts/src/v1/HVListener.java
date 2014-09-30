@@ -1,7 +1,3 @@
-/* NOT OURS. This is a modified version of an example keylistener, located here:
- * http://examples.javacodegeeks.com/desktop-java/awt/event/a-complete-keylistener-example/
- */
-
 package v1;
 
 import java.awt.BorderLayout;
@@ -15,59 +11,64 @@ import javax.swing.JTextField;
 public class HVListener {
 	static int myXPosition = 0;
 	static int myYPosition = 0;
-	static int turnCount = 0;
+	static TurnControl turn = new TurnControl();
+
+	public static void turnEnd() {
+		turn.turnControl();
+		turn.setPlayerTurn(true);
+	}
 
 	public static void moveUpLeft() {
 		myXPosition--;
 		myYPosition++;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveUp() {
 		myYPosition++;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveUpRight() {
 		myXPosition++;
 		myYPosition++;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveLeft() {
 		myXPosition--;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void sit() {
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveRight() {
 		myYPosition++;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveDownLeft() {
 		myXPosition--;
 		myYPosition--;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveDown() {
 		myYPosition--;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void moveDownRight() {
 		myXPosition++;
 		myYPosition--;
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void jump() {
 		// Random position
-		turnCount++;
+		turnEnd();
 	}
 
 	public static void main(String[] args) {
@@ -78,33 +79,35 @@ public class HVListener {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				printEventInfo("Key Pressed ", e);
-				if (e.getKeyChar() == KeyEvent.VK_Q) {
-					moveUpLeft();
-				} else if (e.getKeyChar() == KeyEvent.VK_W
-						|| e.getKeyChar() == KeyEvent.VK_UP) {
-					moveUp();
-				} else if (e.getKeyChar() == KeyEvent.VK_E) {
-					moveUpRight();
-				} else if (e.getKeyChar() == KeyEvent.VK_A
-						|| e.getKeyChar() == KeyEvent.VK_LEFT) {
-					moveLeft();
-				} else if (e.getKeyChar() == KeyEvent.VK_S) {
-					sit();
-				} else if (e.getKeyChar() == KeyEvent.VK_D
-						|| e.getKeyChar() == KeyEvent.VK_RIGHT) {
-					moveRight();
-				} else if (e.getKeyChar() == KeyEvent.VK_Z) {
-					moveDownLeft();
-				} else if (e.getKeyChar() == KeyEvent.VK_X
-						|| e.getKeyChar() == KeyEvent.VK_DOWN) {
-					moveDown();
-				} else if (e.getKeyChar() == KeyEvent.VK_C) {
-					moveDownRight();
-				} else if (e.getKeyChar() == KeyEvent.VK_J
-						|| e.getKeyChar() == KeyEvent.VK_SPACE) {
-					jump();
-				} else {
-					System.out.println("Key pressed was invalid.");
+				if (turn.getPlayerTurn() == true) {
+					if (e.getKeyChar() == KeyEvent.VK_Q) {
+						moveUpLeft();
+					} else if (e.getKeyChar() == KeyEvent.VK_W
+							|| e.getKeyChar() == KeyEvent.VK_UP) {
+						moveUp();
+					} else if (e.getKeyChar() == KeyEvent.VK_E) {
+						moveUpRight();
+					} else if (e.getKeyChar() == KeyEvent.VK_A
+							|| e.getKeyChar() == KeyEvent.VK_LEFT) {
+						moveLeft();
+					} else if (e.getKeyChar() == KeyEvent.VK_S) {
+						sit();
+					} else if (e.getKeyChar() == KeyEvent.VK_D
+							|| e.getKeyChar() == KeyEvent.VK_RIGHT) {
+						moveRight();
+					} else if (e.getKeyChar() == KeyEvent.VK_Z) {
+						moveDownLeft();
+					} else if (e.getKeyChar() == KeyEvent.VK_X
+							|| e.getKeyChar() == KeyEvent.VK_DOWN) {
+						moveDown();
+					} else if (e.getKeyChar() == KeyEvent.VK_C) {
+						moveDownRight();
+					} else if (e.getKeyChar() == KeyEvent.VK_J
+							|| e.getKeyChar() == KeyEvent.VK_SPACE) {
+						jump();
+					} else {
+						System.out.println("Key pressed was invalid.");
+					}
 				}
 			}
 
