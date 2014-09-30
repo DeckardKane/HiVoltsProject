@@ -8,6 +8,13 @@ public class TurnControl {
 	int mhoY;
 	
 	
+	public boolean getPlayerTurn() {
+		return playerTurn;
+	}
+	public void setPlayerTurn(boolean playerTurn) {
+		this.playerTurn = playerTurn;
+	}
+	
 	public int getMhoX() {
 		return mhoX;
 	}
@@ -22,16 +29,17 @@ public class TurnControl {
 	}
 	
 	public void turnControl(){
-		if playerTurn == true {
-			print "It's the player's turn.";
+		if (playerTurn == true) {
+			System.out.println("It's the player's turn.");
 			/* PSEUDOCODE
-			
-			gamestate++;
+			playerTurn = false is handled by the movement methods, which is really clever.
+			So whenever we press a valid key and invoke a movement command, the movement method
+			will set playerTurn to false.
 			preventplayerinput; (how do I implement that?)
 			}
 			*/
-		} else if playerTurn == false {
-			print "Now it's time for the mho's to move!"
+		} else if (playerTurn == false) {
+			System.out.println("Now it's time for the mho's to move!");
 		}
 			
 		}
