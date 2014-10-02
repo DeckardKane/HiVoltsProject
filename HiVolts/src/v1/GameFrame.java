@@ -55,7 +55,7 @@ public class GameFrame extends JComponent {
 		}
 		for (int i = 0; i < 12; i++) {
 			cell[RandomNumberInRangeX(1, 12)][RandomNumberInRangeY(1, 12)]
-					.setMoo(true);
+					.setMho(true);
 		}
 		for (int x = 0; x < 14; x++) {
 			for (int y = 0; y < 14; y++) {

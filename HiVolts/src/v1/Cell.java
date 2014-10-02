@@ -16,7 +16,7 @@ public class Cell extends JPanel {
 
 	private final Color SMILEY = Color.ORANGE;
 	private final Color FENCE = Color.GRAY;
-	private final Color MOO = Color.GREEN;
+	private final Color MHO = Color.GREEN;
 
 	ImageIcon Smiley = new ImageIcon("Smiley.png");
 	ImageIcon Sad = new ImageIcon("SadFace.png");
@@ -47,9 +47,9 @@ public class Cell extends JPanel {
 			myColor = FENCE;
 		}
 	}
-	public void setMoo (Boolean Moo) {
-		if (Moo == true) {
-			myColor = MOO;
+	public void setMho (Boolean Mho) {
+		if (Mho == true) {
+			myColor = MHO;
 		}
 	}
 	
