@@ -291,7 +291,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		Reload.setVisible(true);
 
 
-		timer = new Timer(1000, this);
+		timer = new Timer(1, this);
 
 		timer.setInitialDelay(0);
 
@@ -364,7 +364,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			* fences do not overlap! Success! However, Mhos can be generated on top of the fences. So I need to implement
 			* this same collision detection but with the Mhos.
 			*/
-			System.out.println("Element " + i + " has coordinates of: " + x + " and " + y);
+			System.out.println("Fence " + i + " has coordinates of: " + x + " and " + y);
 			
 			/* What this while loop does is check if isFence is returning true with arguments of the x and y coordinates
 			 * above (with i giving us the limit for values that have been assigned). If you try and check the whole array
@@ -380,7 +380,7 @@ public class GameFrame extends JComponent implements ActionListener {
 				
 				System.out.println("isFence was true!");
 				
-				System.out.println("Element " + i + " has coordinates of: " + x + " and " + y);
+				System.out.println("Fence " + i + " has coordinates of: " + x + " and " + y);
 			}
 			
 			FenceCell[i] = new Cell(x, y, FENCE);
@@ -391,30 +391,76 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < MhoCell.length; i++) {
 
-			int x = -5;
+			int x = RandomNumberInRange(1,12);
 
-			int y = -5;
-
-			if (!OverlapMhoAndFence(x, y)) {
-
-				x = RandomNumberInRange(1, 12);
-
-				y = RandomNumberInRange(1, 12);
+			int y = RandomNumberInRange(1,12);
 			
+			System.out.println("Mho " + i + " has coordinates of: " + x + " and " + y);
+
+			
+			while (isFence(x,y,i) == true) {
+				
+				x = RandomNumberInRange(1,12);
+				
+				y = RandomNumberInRange(1,12);
+				
+				System.out.println("isFence was true!");
+				
+				System.out.println("Mho " + i + " has coordinates of: " + x + " and " + y);
+			}
+			
+			while (isMho(x,y,i) == true) {
+				
+				x = RandomNumberInRange(1,12);
+				
+				y = RandomNumberInRange(1,12);
+				
+				System.out.println("isMho was true!");
+				
+				System.out.println("Mho " + i + " has coordinates of: " + x + " and " + y);
 			}
 
-
 			MhoCell[i] = new Cell(x, y, MHO);
-			System.out.println("Mho " + i + " has coordinates of: " + x + " and " + y);
+
 		}
 
 
 		SmileyCell = new Cell[1];
 
-		SmileyCell[0] = new Cell(RandomNumberInRange(1, 12),
-
-				RandomNumberInRange(1, 12), SMILEY);
-
+		for (int i = 0; i < SmileyCell.length; i++) {
+			
+			int x = RandomNumberInRange(1,12);
+			
+			int y = RandomNumberInRange(1,12);
+			
+			while (isFence(x,y,i) == true) {
+				
+				x = RandomNumberInRange(1,12);
+				
+				y = RandomNumberInRange(1,12);
+				
+				System.out.println("isFence was true!");
+				
+				System.out.println("Smiley " + i + " has coordinates of: " + x + " and " + y);
+				
+			}
+			
+			while (isMho(x,y,i) == true) {
+				
+				x = RandomNumberInRange(1,12);
+				
+				y = RandomNumberInRange(1,12);
+				
+				System.out.println("isMho was true!");
+				
+				System.out.println("Smiley " + i + " has coordinates of: " + x + " and " + y);
+			}
+			
+			SmileyCell[i] = new Cell(x, y, SMILEY);
+			System.out.println("Smiley has coordinates of: " + x + " and " + y);
+			
+		}
+		
 	}
 
 
@@ -575,10 +621,18 @@ public class GameFrame extends JComponent implements ActionListener {
 		return false;
 	}
 	
-	private boolean isMho() {
-		boolean retval = true;
+	private boolean isMho(int x, int y, int CellLength) {
+		for (int i = 0; i < CellLength; i++) {
+			
+			if (MhoCell[i].getX() == x && MhoCell[i].getY() == y) {
+				
+				return true;
+				
+			}
+			
+		}
 		
-		return retval;
+		return false;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -694,23 +748,6 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		}
-
-	}
-
-
-	private boolean OverlapMhoAndFence(int x, int y) {
-
-		for (int i = 0; i < FenceCell.length; i++) {
-
-			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
-
-				return true;
-
-			}
-
-		}
-
-		return false;
 
 	}
 
