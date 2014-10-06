@@ -18,6 +18,7 @@
 package v1;
 
 import java.awt.Component;
+
 import java.awt.Dimension;
 
 //Changing this to just include the entire swing library.
