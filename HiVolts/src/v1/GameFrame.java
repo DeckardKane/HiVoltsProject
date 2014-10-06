@@ -59,7 +59,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	// Cell Parameters
 
-
 	private final int CELL_WIDTH = 57;
 
 	private final int CELL_HEIGHT = 57;
@@ -91,7 +90,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	// Cell Arrays
 
-
 	private Cell[] SmileyCell = null;
 
 	private Cell[] FenceCell = null;
@@ -105,7 +103,6 @@ public class GameFrame extends JComponent implements ActionListener {
 	private Cell[] topOutsideCell = null;
 
 	private Cell[] MhoCell = null;
-
 
 	// Colors
 
@@ -125,7 +122,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private static enum Direction {
 
-		UP, DOWN, LEFT, RIGHT, NONE
+		UP, DOWN, LEFT, RIGHT, NONE, JUMP
 
 	};
 
@@ -251,7 +248,23 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0),
 
+				Direction.JUMP);
+
+		actionMap.put(Direction.JUMP, new AbstractAction() {
+
+
+			@Override
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				onJump();
+
+			}
+
+		});
 
 		Reload = new JButton();
 
@@ -345,14 +358,36 @@ public class GameFrame extends JComponent implements ActionListener {
 			int x = RandomNumberInRange(1, 12);
 
 			int y = RandomNumberInRange(1, 12);
-
+			
+			/*The System outs in this section were for validation purposes. I was checking whether or not what I did worked
+			* by checking if fences were overlapping each other or if Mhos were generated on the fences. At this point:
+			* fences do not overlap! Success! However, Mhos can be generated on top of the fences. So I need to implement
+			* this same collision detection but with the Mhos.
+			*/
+			System.out.println("Element " + i + " has coordinates of: " + x + " and " + y);
+			
+			/* What this while loop does is check if isFence is returning true with arguments of the x and y coordinates
+			 * above (with i giving us the limit for values that have been assigned). If you try and check the whole array
+			 * at once, you get a nullpointer error, because the coordinates have not been assigned yet. So we check it
+			 * step by step, increasing as the elements in the array are assigned values.
+			 * And if ifFence is true, the while loop generates new x and y coordinates until it returns false.
+			 */
+			while (isFence(x,y,i) == true) {
+				
+				x = RandomNumberInRange(1,12);
+				
+				y = RandomNumberInRange(1,12);
+				
+				System.out.println("isFence was true!");
+				
+				System.out.println("Element " + i + " has coordinates of: " + x + " and " + y);
+			}
+			
 			FenceCell[i] = new Cell(x, y, FENCE);
-
+				
 		}
 
-
 		MhoCell = new Cell[12];
-
 
 		for (int i = 0; i < MhoCell.length; i++) {
 
@@ -365,12 +400,12 @@ public class GameFrame extends JComponent implements ActionListener {
 				x = RandomNumberInRange(1, 12);
 
 				y = RandomNumberInRange(1, 12);
-
+			
 			}
 
 
 			MhoCell[i] = new Cell(x, y, MHO);
-
+			System.out.println("Mho " + i + " has coordinates of: " + x + " and " + y);
 		}
 
 
@@ -517,19 +552,47 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
+	private void onJump() {
+		
+		SmileyDirection = Direction.JUMP;
+		
+	}
+	
+	/* isFence searches for the value pair x and y in the FenceCell array up to the element designated by CellLength. 
+	 * CellLength is used so only assigned values are searched during initialization.
+	 */
+	private boolean isFence(int x,int y, int CellLength) {
+		for (int i = 0; i < CellLength; i++) {
 
+			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
+
+				return true;
+
+			}
+
+		}
+
+		return false;
+	}
+	
+	private boolean isMho() {
+		boolean retval = true;
+		
+		return retval;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 
 		switch (SmileyDirection) {
 
 		case DOWN:
-
+			
 			SmileyCell[0].setY(SmileyCell[0].getY() + 1);
 
 			System.out.println("Down");
 
 			SmileyDirection = Direction.NONE;
-
+			
 			break;
 
 		case LEFT:
@@ -565,12 +628,16 @@ public class GameFrame extends JComponent implements ActionListener {
 		case NONE:
 
 			SmileyCell[0].setY(SmileyCell[0].getY());
-
+		/*	
+			break;
+			
+		case JUMP:
+			SmileyCell[0]
+*/
 		}
-
+		
 		repaint();
-
-
+		
 	}
 
 
