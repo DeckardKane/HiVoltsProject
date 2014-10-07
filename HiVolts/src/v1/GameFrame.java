@@ -591,32 +591,48 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void onUp() {
-		if (SmileyCell[0].getY() > 1) {
-			SmileyDirection = Direction.UP;
+		if (isFence(SmileyCell[0].getX(), SmileyCell[0].getY() - 1, 20) == false) {
+			if (SmileyCell[0].getY() > 1) {
+				SmileyDirection = Direction.UP;
+			} else {
+				SmileyDirection = Direction.NONE;
+			}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
 	}
 
 	private void onDown() {
-		if (SmileyCell[0].getY() < 12) {
-			SmileyDirection = Direction.DOWN;
+		if (isFence(SmileyCell[0].getX(), SmileyCell[0].getY() + 1, 20) == false) {
+			if (SmileyCell[0].getY() < 12) {
+				SmileyDirection = Direction.DOWN;
+			} else {
+				SmileyDirection = Direction.NONE;
+			}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
 	}
 
 	private void onLeft() {
-		if (SmileyCell[0].getX() > 1) {
-			SmileyDirection = Direction.LEFT;
+		if (isFence(SmileyCell[0].getX()-1, SmileyCell[0].getY(), 20) == false) {
+			if (SmileyCell[0].getX() > 1) {
+				SmileyDirection = Direction.LEFT;
+			} else {
+				SmileyDirection = Direction.NONE;
+			}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
 	}
 
 	private void onRight() {
-		if (SmileyCell[0].getX() < 12) {
-			SmileyDirection = Direction.RIGHT;
+		if (isFence(SmileyCell[0].getX()+1, SmileyCell[0].getY(), 20) == false) {
+			if (SmileyCell[0].getX() < 12) {
+				SmileyDirection = Direction.RIGHT;
+			} else {
+				SmileyDirection = Direction.NONE;
+			}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
@@ -628,25 +644,36 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void UpAndRight() {
-		if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() > 1) {
-			SmileyDirection = Direction.UPANDRIGHT;
+		if (isFence(SmileyCell[0].getX()+1, SmileyCell[0].getY()-1, 20) == false) {
+			if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() > 1) {
+				SmileyDirection = Direction.UPANDRIGHT;
+			} else {
+				SmileyDirection = Direction.NONE;
+			}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
-
 	}
 
 	private void UpAndLeft() {
+		if (isFence(SmileyCell[0].getX()-1, SmileyCell[0].getY()-1, 20) == false) {
 		if (SmileyCell[0].getX() > 1 && SmileyCell[0].getY() > 1) {
 			SmileyDirection = Direction.UPANDLEFT;
+		} else {
+			SmileyDirection = Direction.NONE;
+		}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
 	}
 
 	private void DownAndRight() {
+		if (isFence(SmileyCell[0].getX()+1, SmileyCell[0].getY()+1, 20) == false) {
 		if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() < 12) {
 			SmileyDirection = Direction.DOWNANDRIGHT;
+		} else {
+			SmileyDirection = Direction.NONE;
+		}
 		} else {
 			SmileyDirection = Direction.NONE;
 		}
@@ -654,10 +681,12 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void DownAndLeft() {
+		if (isFence(SmileyCell[0].getX()-1, SmileyCell[0].getY()+1, 20) == false) {
 		if (SmileyCell[0].getX() > 1 && SmileyCell[0].getY() < 12) {
 			SmileyDirection = Direction.DOWNANDLEFT;
 		} else {
 			SmileyDirection = Direction.NONE;
+		}
 		}
 	}
 
@@ -668,7 +697,6 @@ public class GameFrame extends JComponent implements ActionListener {
 	 */
 	private boolean isFence(int x, int y, int CellLength) {
 		for (int i = 0; i < CellLength; i++) {
-
 			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
 
 				return true;
@@ -677,6 +705,15 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		}
 
+		return false;
+	}
+
+	private boolean checkCollision(int x, int y, int CellLength) {
+		for (int i = 0; i < CellLength; i++) {
+			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
+				return true;
+			}
+		}
 		return false;
 	}
 
