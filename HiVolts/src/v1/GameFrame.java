@@ -122,7 +122,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private static enum Direction {
 
-		UP, DOWN, LEFT, RIGHT, NONE, JUMP
+		UP, DOWN, LEFT, RIGHT, NONE, UPANDLEFT, DOWNANDLEFT, UPANDRIGHT, DOWNANDRIGHT, JUMP
 
 	};
 
@@ -180,7 +180,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
 
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), Direction.UP);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0), Direction.UP);
 
 		actionMap.put(Direction.UP, new AbstractAction() {
 
@@ -196,7 +196,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		});
 
 
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0),
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, 0),
 
 				Direction.DOWN);
 
@@ -212,9 +212,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
-
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0),
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0),
 
 				Direction.LEFT);
 
@@ -232,7 +230,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		});
 
 
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0),
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0),
 
 				Direction.RIGHT);
 
@@ -261,6 +259,71 @@ public class GameFrame extends JComponent implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 
 				onJump();
+
+			}
+
+		});
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0),
+
+				Direction.UPANDLEFT);
+
+		actionMap.put(Direction.UPANDLEFT, new AbstractAction() {
+
+
+			@Override
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				UpAndLeft();
+
+			}
+
+		});
+		
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_E, 0),
+
+				Direction.UPANDRIGHT);
+
+		actionMap.put(Direction.UPANDRIGHT, new AbstractAction() {
+
+
+			@Override
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				UpAndRight();
+
+			}
+
+		});
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0),
+
+				Direction.DOWNANDRIGHT);
+
+		actionMap.put(Direction.DOWNANDRIGHT, new AbstractAction() {
+
+
+			@Override
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				DownAndRight();
+
+			}
+
+		});
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0),
+
+				Direction.DOWNANDLEFT);
+
+		actionMap.put(Direction.DOWNANDLEFT, new AbstractAction() {
+
+
+			@Override
+
+			public void actionPerformed(ActionEvent arg0) {
+
+				DownAndLeft();
 
 			}
 
@@ -576,8 +639,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		SmileyDirection = Direction.UP;
 
 	}
-
-
+	
 	private void onDown() {
 
 		SmileyDirection = Direction.DOWN;
@@ -603,7 +665,26 @@ public class GameFrame extends JComponent implements ActionListener {
 		SmileyDirection = Direction.JUMP;
 		
 	}
-	
+	private void UpAndRight() {
+		
+		SmileyDirection = Direction.UPANDRIGHT;
+		
+	}
+	private void UpAndLeft () {
+
+		SmileyDirection = Direction.UPANDLEFT;
+
+	}
+	private void DownAndRight () {
+
+		SmileyDirection = Direction.DOWNANDRIGHT;
+
+	}
+	private void DownAndLeft () {
+
+		SmileyDirection = Direction.DOWNANDLEFT;
+
+	}
 	/* isFence searches for the value pair x and y in the FenceCell array up to the element designated by CellLength. 
 	 * CellLength is used so only assigned values are searched during initialization.
 	 */
@@ -678,7 +759,50 @@ public class GameFrame extends JComponent implements ActionListener {
 			SmileyDirection = Direction.NONE;
 
 			break;
+			
+		case UPANDLEFT:
+			
+			SmileyCell[0].setX(SmileyCell[0].getX() - 1);
+			SmileyCell[0].setY(SmileyCell[0].getY() - 1);
 
+			System.out.println("Up and Left");
+
+			SmileyDirection = Direction.NONE;
+
+			break;
+		
+		case UPANDRIGHT:
+			
+			SmileyCell[0].setX(SmileyCell[0].getX() + 1);
+			SmileyCell[0].setY(SmileyCell[0].getY() - 1);
+
+			System.out.println("Up and Right");
+
+			SmileyDirection = Direction.NONE;
+
+			break;
+		
+		case DOWNANDRIGHT:
+			
+			SmileyCell[0].setX(SmileyCell[0].getX() + 1);
+			SmileyCell[0].setY(SmileyCell[0].getY() + 1);
+
+			System.out.println("Down and Right");
+
+			SmileyDirection = Direction.NONE;
+
+			break;
+		
+		case DOWNANDLEFT:
+			
+			SmileyCell[0].setX(SmileyCell[0].getX() - 1);
+			SmileyCell[0].setY(SmileyCell[0].getY() + 1);
+
+			System.out.println("Down and Left");
+
+			SmileyDirection = Direction.NONE;
+
+			break;
 		case NONE:
 
 			SmileyCell[0].setY(SmileyCell[0].getY());
