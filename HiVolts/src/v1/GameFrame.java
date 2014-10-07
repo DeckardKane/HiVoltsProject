@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import java.awt.Graphics;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionEvent;
@@ -21,6 +22,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.AbstractAction;
 
@@ -309,7 +314,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		gameOverLabel = new JLabel("State: Game Over");
 		gameOverLabel.setBounds(350, 900, 500, 50);
 		gameOverLabel.setFont(MYFONT);
-		gameOverLabel.setForeground (Color.red);
+		gameOverLabel.setForeground(Color.red);
 		add(gameOverLabel);
 		gameOverLabel.setVisible(false);
 
@@ -333,7 +338,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			for (int col = 0; col < COLS; col++) {
 
-				cell[row][col] = new Cell(row, col, Color.BLACK);
+				cell[row][col] = new Cell(row, col, Color.BLACK, null);
 
 			}
 
@@ -347,7 +352,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < bottomOutsideCell.length; i++) {
 
-			bottomOutsideCell[i] = new Cell(i, 13, OUTSIDEFENCE);
+			bottomOutsideCell[i] = new Cell(i, 13, null, readImage("Fence.png"));
 
 		}
 
@@ -355,7 +360,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < rightOutsideCell.length; i++) {
 
-			rightOutsideCell[i] = new Cell(13, i, OUTSIDEFENCE);
+			rightOutsideCell[i] = new Cell(13, i, null, readImage("Fence.png"));
 
 		}
 
@@ -363,7 +368,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < leftOutsideCell.length; i++) {
 
-			leftOutsideCell[i] = new Cell(0, i, OUTSIDEFENCE);
+			leftOutsideCell[i] = new Cell(0, i, null, readImage("Fence.png"));
 
 		}
 
@@ -371,7 +376,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < topOutsideCell.length; i++) {
 
-			topOutsideCell[i] = new Cell(i, 0, OUTSIDEFENCE);
+			topOutsideCell[i] = new Cell(i, 0, null, readImage("Fence.png"));
 
 		}
 
@@ -416,7 +421,7 @@ public class GameFrame extends JComponent implements ActionListener {
 						+ " and " + y);
 			}
 
-			FenceCell[i] = new Cell(x, y, FENCE);
+			FenceCell[i] = new Cell(x, y, null, readImage("Fence.png"));
 
 		}
 
@@ -455,7 +460,7 @@ public class GameFrame extends JComponent implements ActionListener {
 						+ " and " + y);
 			}
 
-			MhoCell[i] = new Cell(x, y, MHO);
+			MhoCell[i] = new Cell(x, y, null, readImage("Mho.png"));
 
 		}
 
@@ -492,11 +497,26 @@ public class GameFrame extends JComponent implements ActionListener {
 						+ " and " + y);
 			}
 
-			SmileyCell[i] = new Cell(x, y, SMILEY);
+			SmileyCell[i] = new Cell(x, y, null, readImage("Smiley.png"));
 			System.out.println("Smiley has coordinates of: " + x + " and " + y);
 
 		}
 
+	}
+
+	private BufferedImage readImage(String name) {
+		BufferedImage img = null;
+		try {
+			InputStream stream = getClass().getResourceAsStream(name);
+			if (stream != null) {
+				img = ImageIO.read(stream);
+			} else {
+				System.out.println("Image " + name + " not found");
+			}
+		} catch (IOException e) {
+			System.out.println("Image " + name + " not found - exception");
+		}
+		return img;
 	}
 
 	private int RandomNumberInRange(int start, int end) {
@@ -516,7 +536,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		ingame = true;
 		initPositions();
 		repaint();
-		
 
 	}
 
@@ -781,6 +800,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		return false;
 	}
+
 	private boolean checkMho(int x, int y, int CellLength) {
 		for (int i = 0; i < CellLength; i++) {
 			if (MhoCell[i].getX() == x && MhoCell[i].getY() == y) {
@@ -945,7 +965,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				Cell.draw(col, row, X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 
-				CELL_HEIGHT, GRID_COLOR, g);
+				CELL_HEIGHT, GRID_COLOR, g, null);
 
 			}
 
@@ -953,4 +973,3 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
-}
