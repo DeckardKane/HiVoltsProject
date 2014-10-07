@@ -31,7 +31,7 @@ public class MainClass extends JPanel{
 	
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;
-		final int WIDTH = 1000;
+		final int WIDTH = 1200;
 		JFrame f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
 		GameFrame display = new GameFrame(WIDTH, HEIGHT);

@@ -635,33 +635,40 @@ public class GameFrame extends JComponent implements ActionListener {
 
 
 	private void onUp() {
-
-		SmileyDirection = Direction.UP;
-
+		if(SmileyCell[0].getY() > 1){
+			SmileyDirection = Direction.UP;
+		}else{
+			SmileyDirection = Direction.NONE;
+		}	
 	}
 	
 	private void onDown() {
-
-		SmileyDirection = Direction.DOWN;
-
+		if(SmileyCell[0].getY() < 12){
+			SmileyDirection = Direction.DOWN;
+		}else{
+			SmileyDirection = Direction.NONE;
+		}	
 	}
 
 
 	private void onLeft() {
-
-		SmileyDirection = Direction.LEFT;
-
+		if(SmileyCell[0].getX() > 1){
+			SmileyDirection = Direction.LEFT;
+		}else{
+			SmileyDirection = Direction.NONE;
+		}	
 	}
 
 
 	private void onRight() {
-
-		SmileyDirection = Direction.RIGHT;
-
+		if(SmileyCell[0].getX() < 12){
+			SmileyDirection = Direction.RIGHT;
+		}else{
+			SmileyDirection = Direction.NONE;
+		}	
 	}
 
 	private void onJump() {
-		
 		SmileyDirection = Direction.JUMP;
 		
 	}
@@ -715,6 +722,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		
 		return false;
 	}
+	
 	
 	public void actionPerformed(ActionEvent e) {
 
@@ -792,7 +800,6 @@ public class GameFrame extends JComponent implements ActionListener {
 			SmileyDirection = Direction.NONE;
 
 			break;
-		
 		case DOWNANDLEFT:
 			
 			SmileyCell[0].setX(SmileyCell[0].getX() - 1);
@@ -804,14 +811,10 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			break;
 		case NONE:
-
 			SmileyCell[0].setY(SmileyCell[0].getY());
-		/*	
+			SmileyCell[0].setX(SmileyCell[0].getX());
+		
 			break;
-			
-		case JUMP:
-			SmileyCell[0]
-*/
 		}
 		
 		repaint();
