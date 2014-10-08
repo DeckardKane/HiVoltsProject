@@ -1,42 +1,33 @@
 package v1;
 
 import java.awt.Color;
-
 import java.awt.Font;
-
 import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-
 import java.util.ArrayList;
 
 import javax.swing.Timer;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.AbstractAction;
-
 import javax.swing.ActionMap;
-
 import javax.swing.InputMap;
-
 import javax.swing.JButton;
-
 import javax.swing.JLabel;
-
 import javax.swing.KeyStroke;
 
 public class GameFrame extends JComponent implements ActionListener {
@@ -223,7 +214,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		});
 
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0),
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0),
 
 		Direction.JUMP);
 
@@ -436,7 +427,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			System.out.println("Mho " + i + " has coordinates of: " + x
 					+ " and " + y);
 
-			while (isFence(x, y, i) == true) {
+			while (isFence(x, y, FenceCell.length) == true) {
 
 				x = RandomNumberInRange(1, 12);
 
@@ -503,7 +494,20 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 
 	}
-
+	
+	private BufferedImage readImage(String name) {
+		BufferedImage img = null;
+		try {
+			InputStream stream = new BufferedInputStream(
+					new FileInputStream(name));
+			img = ImageIO.read(stream);
+		} catch (IOException e) {
+			System.out.println("Image " + name + " not found - exception");
+		}
+		return img;
+	}
+	
+	/*
 	private BufferedImage readImage(String name) {
 		BufferedImage img = null;
 		try {
@@ -516,9 +520,10 @@ public class GameFrame extends JComponent implements ActionListener {
 		} catch (IOException e) {
 			System.out.println("Image " + name + " not found - exception");
 		}
+		System.out.println("Classpath is: " + System.getProperty("java.class.path"));
 		return img;
 	}
-
+*/
 	private int RandomNumberInRange(int start, int end) {
 
 		double randd = Math.random();
@@ -629,7 +634,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX(), SmileyCell[0].getY() - 1, 20) == false) {
 			if (SmileyCell[0].getY() > 1) {
 				SmileyDirection = Direction.UP;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -642,7 +647,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX(), SmileyCell[0].getY() + 1, 20) == false) {
 			if (SmileyCell[0].getY() < 12) {
 				SmileyDirection = Direction.DOWN;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -655,7 +660,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX() - 1, SmileyCell[0].getY(), 20) == false) {
 			if (SmileyCell[0].getX() > 1) {
 				SmileyDirection = Direction.LEFT;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -668,7 +673,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX() + 1, SmileyCell[0].getY(), 20) == false) {
 			if (SmileyCell[0].getX() < 12) {
 				SmileyDirection = Direction.RIGHT;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -686,7 +691,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX() + 1, SmileyCell[0].getY() - 1, 20) == false) {
 			if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() > 1) {
 				SmileyDirection = Direction.UPANDRIGHT;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -699,7 +704,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX() - 1, SmileyCell[0].getY() - 1, 20) == false) {
 			if (SmileyCell[0].getX() > 1 && SmileyCell[0].getY() > 1) {
 				SmileyDirection = Direction.UPANDLEFT;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 
@@ -713,7 +718,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX() + 1, SmileyCell[0].getY() + 1, 20) == false) {
 			if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() < 12) {
 				SmileyDirection = Direction.DOWNANDRIGHT;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -727,7 +732,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (isFence(SmileyCell[0].getX() - 1, SmileyCell[0].getY() + 1, 20) == false) {
 			if (SmileyCell[0].getX() > 1 && SmileyCell[0].getY() < 12) {
 				SmileyDirection = Direction.DOWNANDLEFT;
-				afterPlayerMove();
+				mhoMovement();
 			} else {
 				GameOver();
 			}
@@ -736,13 +741,38 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	private void afterPlayerMove() {
+	private void mhoMovement() {
 		/*
 		 * After player moves, mho movement is done in accordance to smiley
 		 * coordinates. Afterwards, mho coordinates must be detected for
 		 * collision.
 		 */
-		for (int i = 0; i <= MhoCell.length; i++) {
+		for (int i = 0; i < MhoCell.length; i++) {
+
+			//If a Mho is directly horizontal or vertical to you, the Mho MUST move directly towards you one square. 
+			
+			//Horizontal
+			/*
+			if (MhoCell[i].getX() == SmileyCell[0].getX()) {
+				if (MhoCell[i].getX() < SmileyCell[0].getX()) {
+					MhoCell[i].setX(MhoCell[i].getX() + 1);
+				} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
+					MhoCell[i].setX(MhoCell[i].getX() - 1);
+				}
+			//Vertical
+			} else if (MhoCell[i].getY() == SmileyCell[0].getY()) {
+				if (MhoCell[i].getY() < SmileyCell[0].getY()) {
+					MhoCell[i].setY(MhoCell[i].getY() + 1); 
+															
+				} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
+					MhoCell[i].setY(MhoCell[i].getY() - 1);
+				}
+					
+				
+															
+			}
+			*/
+			
 			if (MhoCell[i].getX() < SmileyCell[0].getX()) {
 				MhoCell[i].setX(MhoCell[i].getX() + 1);
 			} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
@@ -756,7 +786,9 @@ public class GameFrame extends JComponent implements ActionListener {
 															// downwards
 				}
 			}
+			
 		}
+		
 		for (int i = 0; i <= MhoCell.length; i++) {
 			if (MhoCell[i].getY() < SmileyCell[0].getY()) {
 				MhoCell[i].setY(MhoCell[i].getY() + 1); // Y coord inc.
@@ -772,6 +804,7 @@ public class GameFrame extends JComponent implements ActionListener {
 				}
 			}
 		}
+	
 	}
 
 	/*
@@ -789,24 +822,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		}
 
-		return false;
-	}
-
-	private boolean checkCollision(int x, int y, int CellLength) {
-		for (int i = 0; i < CellLength; i++) {
-			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean checkMho(int x, int y, int CellLength) {
-		for (int i = 0; i < CellLength; i++) {
-			if (MhoCell[i].getX() == x && MhoCell[i].getY() == y) {
-				return true;
-			}
-		}
 		return false;
 	}
 
@@ -919,7 +934,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			break;
 		}
 		repaint();
-		if (checkMho(SmileyCell[0].getX(), SmileyCell[0].getY(), 12) == true) {
+		if (isMho(SmileyCell[0].getX(), SmileyCell[0].getY(), 12) == true) {
 			GameOver();
 		}
 
@@ -970,6 +985,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		}
-
+		
 	}
-
+	
+}
