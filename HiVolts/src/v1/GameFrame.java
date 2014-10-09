@@ -62,6 +62,7 @@ public class GameFrame extends JComponent implements ActionListener {
 	private JLabel Title;
 	private JLabel gameOverLabel;
 	private JButton Reload;
+	private JButton Jump;
 
 	// Cell Arrays
 
@@ -354,6 +355,22 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		Jump = new JButton();
+
+		Jump.setBounds(980, 150, 150, 36);
+
+		Jump.setLabel("Jump");
+
+		Jump.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				onJump();
+
+			}
+
+		});
 		gameOverLabel = new JLabel("State: Game Over");
 		gameOverLabel.setBounds(350, 900, 500, 50);
 		gameOverLabel.setFont(MYFONT);
@@ -362,8 +379,10 @@ public class GameFrame extends JComponent implements ActionListener {
 		gameOverLabel.setVisible(false);
 
 		add(Reload);
+		add(Jump);
 
 		Reload.setVisible(true);
+		Jump.setVisible(true);
 
 		timer = new Timer(1, this);
 
@@ -389,43 +408,47 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
-	public void initPositions() {
 
-		bottomOutsideCell = new Cell[13];
+			public void initPositions() {
 
-		for (int i = 0; i < bottomOutsideCell.length; i++) {
+			bottomOutsideCell = new Cell[13];
+
+			for (int i = 0; i < bottomOutsideCell.length; i++) {
 
 			bottomOutsideCell[i] = new Cell(i, 13, null, readImage("Fence.png"));
 
-		}
+			}
 
-		rightOutsideCell = new Cell[14];
+			rightOutsideCell = new Cell[14];
 
-		for (int i = 0; i < rightOutsideCell.length; i++) {
+			for (int i = 0; i < rightOutsideCell.length; i++) {
 
 			rightOutsideCell[i] = new Cell(13, i, null, readImage("Fence.png"));
 
-		}
+			}
 
-		leftOutsideCell = new Cell[14];
+			leftOutsideCell = new Cell[14];
 
-		for (int i = 0; i < leftOutsideCell.length; i++) {
+			for (int i = 0; i < leftOutsideCell.length; i++) {
 
 			leftOutsideCell[i] = new Cell(0, i, null, readImage("Fence.png"));
 
-		}
+			}
 
-		topOutsideCell = new Cell[14];
+			topOutsideCell = new Cell[14];
 
-		for (int i = 0; i < topOutsideCell.length; i++) {
+			for (int i = 0; i < topOutsideCell.length; i++) {
 
 			topOutsideCell[i] = new Cell(i, 0, null, readImage("Fence.png"));
 
-		}
+			}
 
-		FenceCell = new Cell[20];
+			System.out.println("COORDINATES OF HIVOLTS");
 
-		for (int i = 0; i < FenceCell.length; i++) {
+			// Now let's place 20 fence cells
+			FenceCell = new Cell[20];
+
+			for (int i = 0; i < FenceCell.length; i++) {
 
 			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
@@ -439,8 +462,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			 * However, Mhos can be generated on top of the fences. So I need to
 			 * implement this same collision detection but with the Mhos.
 			 */
-			System.out.println("Fence " + i + " has coordinates of: " + x
-					+ " and " + y);
+			System.out.println("Fence " + i + " may have coordinates of: (" + x
+			+ "," + y + ")");
 
 			/*
 			 * What this while loop does is check if isFence is returning true
@@ -452,77 +475,69 @@ public class GameFrame extends JComponent implements ActionListener {
 			 * assigned values. And if ifFence is true, the while loop generates
 			 * new x and y coordinates until it returns false.
 			 */
-			while (isFence(x, y, i) == true) {
 
-				x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				y = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				System.out.println("isFence was true!");
-
-				System.out.println("Fence " + i + " has coordinates of: " + x
-						+ " and " + y);
-			}
-
-			FenceCell[i] = new Cell(x, y, null, readImage("Fence.png"));
-
-		}
-
-		MhoCell = new Cell[12];
-
-		for (int i = 0; i < MhoCell.length; i++) {
-
-			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-			System.out.println("Mho " + i + " has coordinates of: " + x
-					+ " and " + y);
-
-			while (isFence(x, y) == true) {
-
-				x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				y = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				System.out.println("isFence was true!");
-
-				System.out.println("Mho " + i + " has coordinates of: " + x
-						+ " and " + y);
-			}
-
-			while (isMho(x, y, i) == true) {
-
-				x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				y = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				System.out.println("isMho was true!");
-
-				System.out.println("Mho " + i + " has coordinates of: " + x
-						+ " and " + y);
-			}
-
-			MhoCell[i] = new Cell(x, y, null, readImage("Mho.png"));
-
-		}
-
-		int x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-		int y = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-		while (isFence(x, y) || isMho(x, y, MhoCell.length)) {
+			while (isFence(x, y, i)) {
 
 			x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 			y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-		}
+			System.out.println("Fence " + i + " may have coordinates of: ("
+			+ x + "," + y + ")");
+			}
 
-		SmileyCell = new Cell(x, y, null, readImage("Smiley.png"));
-		System.out.println("Smiley has coordinates of: " + x + " and " + y);
+			FenceCell[i] = new Cell(x, y, null, readImage("Fence.png"));
+			System.out.println("New Fence " + i + " has coordinates of: (" + x
+			+ "," + y + ")");
 
-	}
+			}
+
+			// Now let's place 12 mho cells
+			MhoCell = new Cell[12];
+
+			for (int i = 0; i < MhoCell.length; i++) {
+
+			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			System.out.println("Mho " + i + " may have coordinates of: (" + x
+			+ "," + y + ")");
+
+			while (isFence(x, y) || isMho(x, y, i)) {
+
+			x = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			y = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			System.out.println("Mho " + i + " may have coordinates of: ("
+			+ x + "," + y + ")");
+			}
+
+			MhoCell[i] = new Cell(x, y, null, readImage("Mho.png"));
+			System.out.println("New Mho " + i + " has coordinates of: (" + x
+			+ "," + y + ")");
+			}
+
+			// Now let's place the only Smiley :)(
+			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			while (isFence(x, y) || isMho(x, y, MhoCell.length)) {
+
+			x = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			y = RandomNumberInRange(1, MAX_GRID_SIZE);
+
+			}
+
+			SmileyCell = new Cell(x, y, null, readImage("Smiley.png"));
+			System.out.println("Smiley has coordinates of: (" + x + " and " + y
+			+ ")");
+
+			}
+	
 
 	private BufferedImage readImage(String name) {
 		BufferedImage img = null;
