@@ -165,19 +165,22 @@ public class GameFrame extends JComponent implements ActionListener {
 		add(Title);
 		Title.setVisible(true);
 		
-		
+		// This sets the title "Option" above option buttons. 
 		Title = new JLabel("Options");
 		Title.setBounds(950, -5, 500, 100);
 		// Lucida Console font 
 		Title.setFont(MYFONT);
 		add(Title);
-
 		Title.setVisible(true);
 
+		// KEYS 
+		
+		// Allows ActionMap / InputMap to allow Computer Keys to start methods  
 		ActionMap actionMap = this.getActionMap();
-
 		InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
+		// When W key is clicked, the method onUp() is invoked
+		// and sets Direction to UP
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0), Direction.UP);
 
 		actionMap.put(Direction.UP, new AbstractAction() {
@@ -195,7 +198,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
+		// When X key is clicked, the method onDown() is invoked
+		// and sets Direction to DOWN
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, 0),
 
 		Direction.DOWN);
@@ -215,6 +219,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		// When A key is clicked, the method onLeft() is invoked
+		// and sets Direction to LEFT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0),
 
 		Direction.LEFT);
@@ -234,6 +240,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		// When D key is clicked, the method onRight() is invoked
+		// and sets Direction to RIGHT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0),
 
 		Direction.RIGHT);
@@ -254,25 +262,8 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		});
 
-		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0),
-
-		Direction.JUMP);
-
-		actionMap.put(Direction.JUMP, new AbstractAction() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -621020681565499781L;
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				onJump();
-
-			}
-
-		});
+		// When Q key is clicked, the method UpAndLeft() is invoked
+		// and sets Direction to UPANDLEFT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0),
 
 		Direction.UPANDLEFT);
@@ -292,7 +283,9 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
+		
+		// When E key is clicked, the method UpAndRight() is invoked
+		// and sets Direction to UPANDRIGHT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_E, 0),
 
 		Direction.UPANDRIGHT);
@@ -312,6 +305,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		// When C key is clicked, the method DownAndRight() is invoked
+		// and sets Direction to DOWNANDRIGHT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0),
 
 		Direction.DOWNANDRIGHT);
@@ -331,6 +326,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		// When Z key is clicked, the method DownAndLeft() is invoked
+		// and sets Direction to DOWNANDLEFT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0),
 
 		Direction.DOWNANDLEFT);
@@ -350,7 +347,9 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
+		
+		// When S key is clicked, the method onSit() is invoked
+		// and sets Direction to SIT, meaning it doesn't move. 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0),
 
 		Direction.SIT);
@@ -370,7 +369,33 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		// The Jump Method is invoked when J button is clicked. It
+		// invokes onJump(), which randomly spawns the Smiley. 
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0),
 
+				Direction.JUMP);
+
+				actionMap.put(Direction.JUMP, new AbstractAction() {
+
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -621020681565499781L;
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+
+						onJump();
+
+					}
+
+				});
+				
+		// BUTTONS ARE MADE 
+				
+		// This button restarts the game and randomly spawns the cell types
+		// for new game. Invokes Reload() method. 
+				
 		Reload = new JButton();
 
 		Reload.setBounds(980, 100, 150, 36);
@@ -387,6 +412,10 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		
+		// This button restarts the game and randomly spawns Smiley in the original
+		// game. Invokes onJump() method. 
+		
 		Jump = new JButton();
 
 		Jump.setBounds(980, 150, 150, 36);
@@ -403,25 +432,34 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		
+		// This makes the buttons visible. 
+				add(Reload);
+				add(Jump);
+
+				Reload.setVisible(true);
+				Jump.setVisible(true);
+		
+		// LABELS 
+		
+		// This label which is red is created, but not shown until the GameOver()
+		// is passed. 
+		
 		gameOverLabel = new JLabel("State: Game Over");
 		gameOverLabel.setBounds(350, 900, 500, 50);
 		gameOverLabel.setFont(MYFONT);
 		gameOverLabel.setForeground(Color.red);
 		add(gameOverLabel);
 		gameOverLabel.setVisible(false);
-
-		add(Reload);
-		add(Jump);
-
-		Reload.setVisible(true);
-		Jump.setVisible(true);
-
+		
+		
+		
+		// This sets the timer. This will have minimal delay and quick speed. 
 		timer = new Timer(1, this);
-
 		timer.setInitialDelay(0);
-
 		timer.start();
-
+		
+		// Repaint refreshes Graphics 
 		repaint();
 
 	}
