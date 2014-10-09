@@ -21,20 +21,22 @@ package v1;
 import javax.swing.*;
 
 public class MainClass extends JPanel{
-	
-	/**
-	 * 
-	 */
+
+	// This is caused from Github. Not important. 
 	private static final long serialVersionUID = -8765284626059265563L;
 
 	public static void main(String[] args) {
+		// Sets the Height and Width 
 		final int HEIGHT = 1000;
 		final int WIDTH = 1200;
+		// Creates the JFrame, sets the size, shows the GameFrame.
 		JFrame f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
 		GameFrame display = new GameFrame(WIDTH, HEIGHT);
+		// This sets the properties of the GameFrame 
 		f.setLayout(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Sets Title for HiVolts 
 		f.setTitle("HiVolts");
 		f.add(display);
 		f.setVisible(true);
