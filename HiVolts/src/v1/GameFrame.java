@@ -66,7 +66,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private static final Font MYFONT = new Font("Lucida Console", Font.PLAIN,
 
-			50);
+	50);
 
 	private JLabel Title;
 	private JLabel gameOverLabel;
@@ -172,7 +172,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, 0),
 
-				Direction.DOWN);
+		Direction.DOWN);
 
 		actionMap.put(Direction.DOWN, new AbstractAction() {
 
@@ -186,7 +186,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		});
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0),
 
-				Direction.LEFT);
+		Direction.LEFT);
 
 		actionMap.put(Direction.LEFT, new AbstractAction() {
 
@@ -201,7 +201,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0),
 
-				Direction.RIGHT);
+		Direction.RIGHT);
 
 		actionMap.put(Direction.RIGHT, new AbstractAction() {
 
@@ -216,7 +216,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0),
 
-				Direction.JUMP);
+		Direction.JUMP);
 
 		actionMap.put(Direction.JUMP, new AbstractAction() {
 
@@ -230,7 +230,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		});
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0),
 
-				Direction.UPANDLEFT);
+		Direction.UPANDLEFT);
 
 		actionMap.put(Direction.UPANDLEFT, new AbstractAction() {
 
@@ -245,7 +245,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_E, 0),
 
-				Direction.UPANDRIGHT);
+		Direction.UPANDRIGHT);
 
 		actionMap.put(Direction.UPANDRIGHT, new AbstractAction() {
 
@@ -259,7 +259,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		});
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0),
 
-				Direction.DOWNANDRIGHT);
+		Direction.DOWNANDRIGHT);
 
 		actionMap.put(Direction.DOWNANDRIGHT, new AbstractAction() {
 
@@ -273,7 +273,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		});
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0),
 
-				Direction.DOWNANDLEFT);
+		Direction.DOWNANDLEFT);
 
 		actionMap.put(Direction.DOWNANDLEFT, new AbstractAction() {
 
@@ -494,7 +494,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 
 	}
-
+	
 	private BufferedImage readImage(String name) {
 		BufferedImage img = null;
 		try {
@@ -506,7 +506,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		return img;
 	}
-
+	
 	/*
 	private BufferedImage readImage(String name) {
 		BufferedImage img = null;
@@ -523,7 +523,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		System.out.println("Classpath is: " + System.getProperty("java.class.path"));
 		return img;
 	}
-	 */
+*/
 	private int RandomNumberInRange(int start, int end) {
 
 		double randd = Math.random();
@@ -554,7 +554,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		SmileyCell[0].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 
-				CELL_HEIGHT, g);
+		CELL_HEIGHT, g);
 
 		if (FenceCell != null && FenceCell.length > 0) {
 
@@ -562,7 +562,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				FenceCell[i].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 
-						CELL_HEIGHT, g);
+				CELL_HEIGHT, g);
 
 			}
 
@@ -574,7 +574,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				MhoCell[i].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 
-						CELL_HEIGHT, g);
+				CELL_HEIGHT, g);
 
 			}
 
@@ -586,7 +586,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				bottomOutsideCell[i].draw(X_GRID_OFFSET, Y_GRID_OFFSET,
 
-						CELL_WIDTH, CELL_HEIGHT, g);
+				CELL_WIDTH, CELL_HEIGHT, g);
 
 			}
 
@@ -598,7 +598,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				rightOutsideCell[i].draw(X_GRID_OFFSET, Y_GRID_OFFSET,
 
-						CELL_WIDTH, CELL_HEIGHT, g);
+				CELL_WIDTH, CELL_HEIGHT, g);
 
 			}
 
@@ -610,7 +610,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				leftOutsideCell[i].draw(X_GRID_OFFSET, Y_GRID_OFFSET,
 
-						CELL_WIDTH, CELL_HEIGHT, g);
+				CELL_WIDTH, CELL_HEIGHT, g);
 
 			}
 
@@ -622,7 +622,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				topOutsideCell[i].draw(X_GRID_OFFSET, Y_GRID_OFFSET,
 
-						CELL_WIDTH, CELL_HEIGHT, g);
+				CELL_WIDTH, CELL_HEIGHT, g);
 
 			}
 
@@ -684,17 +684,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private void onJump() {
 		SmileyDirection = Direction.JUMP;
-		
-		int jumpX = RandomNumberInRange(1,12);
-		int jumpY = RandomNumberInRange(1,12);
-		while (isFence(jumpX, jumpY, FenceCell.length) == true) {
-			jumpX = RandomNumberInRange(1,12);
-			jumpY = RandomNumberInRange(1,12);
-			
-		}
-		
-		SmileyCell[0].setX(jumpX);
-		SmileyCell[0].setY(jumpY);
 
 	}
 
@@ -758,90 +747,64 @@ public class GameFrame extends JComponent implements ActionListener {
 		 * coordinates. Afterwards, mho coordinates must be detected for
 		 * collision.
 		 */
-		
-		mhoLoop:
 		for (int i = 0; i < MhoCell.length; i++) {
 
 			//If a Mho is directly horizontal or vertical to you, the Mho MUST move directly towards you one square. 
 			
-			//Horizontal Move
+			//Horizontal
+			/*
 			if (MhoCell[i].getX() == SmileyCell[0].getX()) {
 				if (MhoCell[i].getX() < SmileyCell[0].getX()) {
 					MhoCell[i].setX(MhoCell[i].getX() + 1);
 				} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
 					MhoCell[i].setX(MhoCell[i].getX() - 1);
 				}
-				if (isFence(MhoCell[i].getX(), MhoCell[i].getY(), MhoCell.length) == true) {
-					
-					//This mho is now dead! Add a flag for this?
-					System.out.println("Kill this mho");
-				}
-				break mhoLoop;
-			}
-			//Vertical Move
-			if (MhoCell[i].getY() == SmileyCell[0].getY()) {
+			//Vertical
+			} else if (MhoCell[i].getY() == SmileyCell[0].getY()) {
 				if (MhoCell[i].getY() < SmileyCell[0].getY()) {
 					MhoCell[i].setY(MhoCell[i].getY() + 1); 
-
+															
 				} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
 					MhoCell[i].setY(MhoCell[i].getY() - 1);
 				}
-				if (isFence(MhoCell[i].getX(), MhoCell[i].getY(), MhoCell.length) == true) {
-
-					//This mho is now dead! Add a flag for this?
-					System.out.println("Kill this mho");
-				}
-				break mhoLoop;
-			}
-			
-			//Diagonal Move
-			int tempX = 0;
-			
-			int tempY = 0;
-			
-			if (MhoCell[i].getX() < SmileyCell[0].getX()) {
-				tempX = MhoCell[i].getX() + 1;
-			} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
-				tempX = MhoCell[i].getX() - 1;
-			}
-			
-			if (MhoCell[i].getY() < SmileyCell[0].getY()) {
-				tempY = MhoCell[i].getY() + 1;
-			} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
-				tempY = MhoCell[i].getY() - 1;
-			}
-			
-			if (!isFence(tempX, tempY, FenceCell.length) &&
-					!isMho(tempX, tempY, MhoCell.length)) {
-				MhoCell[i].setX(tempX);
-				MhoCell[i].setY(tempY);
-				break mhoLoop;
-			}
-			
-			//Horizontal/vertical if delta...
-			int deltaX = SmileyCell[0].getX() - MhoCell[i].getX();
-			
-			int deltaY = SmileyCell[0].getY() - MhoCell[i].getY();
-			
-			/*
-			//If horizontal distance towards Smiley is greater than or 
-			if (Math.abs(deltaX) >= Math.abs(deltaY)) {
-				int tempX = ;
+					
 				
-				if (!isFence) {
-					tempX = MhoCell[i].getX() + 1;
-				}
-				break mhoLoop;
-			}
-			
-			if (Math.abs(deltaY) >= Math.abs(deltaX)) {
-				
-				break mhoLoop;
+															
 			}
 			*/
 			
+			if (MhoCell[i].getX() < SmileyCell[0].getX()) {
+				MhoCell[i].setX(MhoCell[i].getX() + 1);
+			} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
+				MhoCell[i].setX(MhoCell[i].getX() - 1);
+			} else if (MhoCell[i].getX() == SmileyCell[0].getX()) {
+				if (MhoCell[i].getY() < SmileyCell[0].getY()) {
+					MhoCell[i].setY(MhoCell[i].getY() + 1); // Y coord inc.
+															// downwards
+				} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
+					MhoCell[i].setY(MhoCell[i].getY() - 1); // Y coord inc.
+															// downwards
+				}
+			}
 			
 		}
+		
+		for (int i = 0; i <= MhoCell.length; i++) {
+			if (MhoCell[i].getY() < SmileyCell[0].getY()) {
+				MhoCell[i].setY(MhoCell[i].getY() + 1); // Y coord inc.
+														// downwards
+			} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
+				MhoCell[i].setY(MhoCell[i].getY() - 1); // Y coord inc.
+														// downwards
+			} else if (MhoCell[i].getY() == SmileyCell[0].getY()) {
+				if (MhoCell[i].getX() < SmileyCell[0].getX()) {
+					MhoCell[i].setX(MhoCell[i].getX() + 1);
+				} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
+					MhoCell[i].setX(MhoCell[i].getX() - 1);
+				}
+			}
+		}
+	
 	}
 
 	/*
@@ -993,11 +956,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			g.drawLine(X_GRID_OFFSET,
 
-					Y_GRID_OFFSET + (row * (CELL_HEIGHT + 1)), X_GRID_OFFSET + COLS
+			Y_GRID_OFFSET + (row * (CELL_HEIGHT + 1)), X_GRID_OFFSET + COLS
 
-					* (CELL_WIDTH + 1), Y_GRID_OFFSET
+			* (CELL_WIDTH + 1), Y_GRID_OFFSET
 
-					+ (row * (CELL_HEIGHT + 1)));
+			+ (row * (CELL_HEIGHT + 1)));
 
 		}
 
@@ -1005,9 +968,9 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			g.drawLine(X_GRID_OFFSET + (col * (CELL_WIDTH + 1)), Y_GRID_OFFSET,
 
-					X_GRID_OFFSET + (col * (CELL_WIDTH + 1)), Y_GRID_OFFSET + ROWS
+			X_GRID_OFFSET + (col * (CELL_WIDTH + 1)), Y_GRID_OFFSET + ROWS
 
-					* (CELL_HEIGHT + 1));
+			* (CELL_HEIGHT + 1));
 
 		}
 
@@ -1017,12 +980,12 @@ public class GameFrame extends JComponent implements ActionListener {
 
 				Cell.draw(col, row, X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 
-						CELL_HEIGHT, GRID_COLOR, g, null);
+				CELL_HEIGHT, GRID_COLOR, g, null);
 
 			}
 
 		}
-
+		
 	}
-
+	
 }
