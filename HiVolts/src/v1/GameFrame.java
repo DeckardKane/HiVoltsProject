@@ -1,36 +1,30 @@
-package v1;
+
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.Timer;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 public class GameFrame extends JComponent implements ActionListener {
+
+	private static final int MAX_GRID_SIZE = 12;
 
 	// Variables
 
@@ -73,8 +67,8 @@ public class GameFrame extends JComponent implements ActionListener {
 	private JButton Reload;
 
 	// Cell Arrays
-
-	private Cell[] SmileyCell = null;
+	
+	private Cell SmileyCell = null;
 
 	private Cell[] FenceCell = null;
 
@@ -109,6 +103,8 @@ public class GameFrame extends JComponent implements ActionListener {
 	};
 
 	private boolean ingame = false;
+	private boolean mhoactive = false;
+
 
 	// Methods
 
@@ -375,9 +371,9 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < FenceCell.length; i++) {
 
-			int x = RandomNumberInRange(1, 12);
+			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-			int y = RandomNumberInRange(1, 12);
+			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 			/*
 			 * The System outs in this section were for validation purposes. I
@@ -402,9 +398,9 @@ public class GameFrame extends JComponent implements ActionListener {
 			 */
 			while (isFence(x, y, i) == true) {
 
-				x = RandomNumberInRange(1, 12);
+				x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-				y = RandomNumberInRange(1, 12);
+				y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 				System.out.println("isFence was true!");
 
@@ -420,18 +416,18 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		for (int i = 0; i < MhoCell.length; i++) {
 
-			int x = RandomNumberInRange(1, 12);
+			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-			int y = RandomNumberInRange(1, 12);
+			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 			System.out.println("Mho " + i + " has coordinates of: " + x
 					+ " and " + y);
 
-			while (isFence(x, y, FenceCell.length) == true) {
+			while (isFence(x, y) == true) {
 
-				x = RandomNumberInRange(1, 12);
+				x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-				y = RandomNumberInRange(1, 12);
+				y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 				System.out.println("isFence was true!");
 
@@ -441,9 +437,9 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			while (isMho(x, y, i) == true) {
 
-				x = RandomNumberInRange(1, 12);
+				x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-				y = RandomNumberInRange(1, 12);
+				y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 				System.out.println("isMho was true!");
 
@@ -455,43 +451,20 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		}
 
-		SmileyCell = new Cell[1];
+		int x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-		for (int i = 0; i < SmileyCell.length; i++) {
+		int y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-			int x = RandomNumberInRange(1, 12);
+		while (isFence(x, y) || isMho(x, y, MhoCell.length)) {
 
-			int y = RandomNumberInRange(1, 12);
+			x = RandomNumberInRange(1, MAX_GRID_SIZE);
 
-			while (isFence(x, y, i) == true) {
-
-				x = RandomNumberInRange(1, 12);
-
-				y = RandomNumberInRange(1, 12);
-
-				System.out.println("isFence was true!");
-
-				System.out.println("Smiley " + i + " has coordinates of: " + x
-						+ " and " + y);
-
-			}
-
-			while (isMho(x, y, i) == true) {
-
-				x = RandomNumberInRange(1, 12);
-
-				y = RandomNumberInRange(1, 12);
-
-				System.out.println("isMho was true!");
-
-				System.out.println("Smiley " + i + " has coordinates of: " + x
-						+ " and " + y);
-			}
-
-			SmileyCell[i] = new Cell(x, y, null, readImage("Smiley.png"));
-			System.out.println("Smiley has coordinates of: " + x + " and " + y);
+			y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 		}
+
+		SmileyCell = new Cell(x, y, null, readImage("Smiley.png"));
+		System.out.println("Smiley has coordinates of: " + x + " and " + y);
 
 	}
 	
@@ -552,7 +525,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	void drawCellTypes(Graphics g) {
 
-		SmileyCell[0].draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
+		SmileyCell.draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
 
 		CELL_HEIGHT, g);
 
@@ -630,11 +603,13 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
+
 	private void onUp() {
-		if (isFence(SmileyCell[0].getX(), SmileyCell[0].getY() - 1, 20) == false) {
-			if (SmileyCell[0].getY() > 1) {
+		if (isFence(SmileyCell.getX(), SmileyCell.getY() - 1) == false) {
+			if (SmileyCell.getY() > 1) {
 				SmileyDirection = Direction.UP;
 				mhoMovement();
+				checkIfMhoHitFence();
 			} else {
 				GameOver();
 			}
@@ -644,10 +619,11 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void onDown() {
-		if (isFence(SmileyCell[0].getX(), SmileyCell[0].getY() + 1, 20) == false) {
-			if (SmileyCell[0].getY() < 12) {
+		if (isFence(SmileyCell.getX(), SmileyCell.getY() + 1) == false) {
+			if (SmileyCell.getY() < MAX_GRID_SIZE) {
 				SmileyDirection = Direction.DOWN;
 				mhoMovement();
+				checkIfMhoHitFence();
 			} else {
 				GameOver();
 			}
@@ -657,10 +633,11 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void onLeft() {
-		if (isFence(SmileyCell[0].getX() - 1, SmileyCell[0].getY(), 20) == false) {
-			if (SmileyCell[0].getX() > 1) {
+		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY()) == false) {
+			if (SmileyCell.getX() > 1) {
 				SmileyDirection = Direction.LEFT;
 				mhoMovement();
+				checkIfMhoHitFence();
 			} else {
 				GameOver();
 			}
@@ -670,10 +647,11 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void onRight() {
-		if (isFence(SmileyCell[0].getX() + 1, SmileyCell[0].getY(), 20) == false) {
-			if (SmileyCell[0].getX() < 12) {
+		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY()) == false) {
+			if (SmileyCell.getX() < MAX_GRID_SIZE) {
 				SmileyDirection = Direction.RIGHT;
 				mhoMovement();
+				checkIfMhoHitFence();
 			} else {
 				GameOver();
 			}
@@ -688,10 +666,11 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void UpAndRight() {
-		if (isFence(SmileyCell[0].getX() + 1, SmileyCell[0].getY() - 1, 20) == false) {
-			if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() > 1) {
+		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY() - 1) == false) {
+			if (SmileyCell.getX() < MAX_GRID_SIZE && SmileyCell.getY() > 1) {
 				SmileyDirection = Direction.UPANDRIGHT;
 				mhoMovement();
+				checkIfMhoHitFence();
 			} else {
 				GameOver();
 			}
@@ -701,10 +680,11 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void UpAndLeft() {
-		if (isFence(SmileyCell[0].getX() - 1, SmileyCell[0].getY() - 1, 20) == false) {
-			if (SmileyCell[0].getX() > 1 && SmileyCell[0].getY() > 1) {
+		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY() - 1) == false) {
+			if (SmileyCell.getX() > 1 && SmileyCell.getY() > 1) {
 				SmileyDirection = Direction.UPANDLEFT;
 				mhoMovement();
+				checkIfMhoHitFence();
 			} else {
 				GameOver();
 
@@ -715,8 +695,8 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void DownAndRight() {
-		if (isFence(SmileyCell[0].getX() + 1, SmileyCell[0].getY() + 1, 20) == false) {
-			if (SmileyCell[0].getX() < 12 && SmileyCell[0].getY() < 12) {
+		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY() + 1) == false) {
+			if (SmileyCell.getX() < MAX_GRID_SIZE && SmileyCell.getY() < MAX_GRID_SIZE) {
 				SmileyDirection = Direction.DOWNANDRIGHT;
 				mhoMovement();
 			} else {
@@ -729,8 +709,8 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	private void DownAndLeft() {
-		if (isFence(SmileyCell[0].getX() - 1, SmileyCell[0].getY() + 1, 20) == false) {
-			if (SmileyCell[0].getX() > 1 && SmileyCell[0].getY() < 12) {
+		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY() + 1) == false) {
+			if (SmileyCell.getX() > 1 && SmileyCell.getY() < MAX_GRID_SIZE) {
 				SmileyDirection = Direction.DOWNANDLEFT;
 				mhoMovement();
 			} else {
@@ -740,7 +720,9 @@ public class GameFrame extends JComponent implements ActionListener {
 			GameOver();
 		}
 	}
+	private void checkIfMhoHitFence(){
 
+	}
 	private void mhoMovement() {
 		/*
 		 * After player moves, mho movement is done in accordance to smiley
@@ -753,18 +735,18 @@ public class GameFrame extends JComponent implements ActionListener {
 			
 			//Horizontal
 			/*
-			if (MhoCell[i].getX() == SmileyCell[0].getX()) {
-				if (MhoCell[i].getX() < SmileyCell[0].getX()) {
+			if (MhoCell[i].getX() == SmileyCell.getX()) {
+				if (MhoCell[i].getX() < SmileyCell.getX()) {
 					MhoCell[i].setX(MhoCell[i].getX() + 1);
-				} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
+				} else if (MhoCell[i].getX() > SmileyCell.getX()) {
 					MhoCell[i].setX(MhoCell[i].getX() - 1);
 				}
 			//Vertical
-			} else if (MhoCell[i].getY() == SmileyCell[0].getY()) {
-				if (MhoCell[i].getY() < SmileyCell[0].getY()) {
+			} else if (MhoCell[i].getY() == SmileyCell.getY()) {
+				if (MhoCell[i].getY() < SmileyCell.getY()) {
 					MhoCell[i].setY(MhoCell[i].getY() + 1); 
 															
-				} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
+				} else if (MhoCell[i].getY() > SmileyCell.getY()) {
 					MhoCell[i].setY(MhoCell[i].getY() - 1);
 				}
 					
@@ -772,16 +754,16 @@ public class GameFrame extends JComponent implements ActionListener {
 															
 			}
 			*/
-			
-			if (MhoCell[i].getX() < SmileyCell[0].getX()) {
+
+			if (MhoCell[i].getX() < SmileyCell.getX()) {
 				MhoCell[i].setX(MhoCell[i].getX() + 1);
-			} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
+			} else if (MhoCell[i].getX() > SmileyCell.getX()) {
 				MhoCell[i].setX(MhoCell[i].getX() - 1);
-			} else if (MhoCell[i].getX() == SmileyCell[0].getX()) {
-				if (MhoCell[i].getY() < SmileyCell[0].getY()) {
+			} else if (MhoCell[i].getX() == SmileyCell.getX()) {
+				if (MhoCell[i].getY() < SmileyCell.getY()) {
 					MhoCell[i].setY(MhoCell[i].getY() + 1); // Y coord inc.
 															// downwards
-				} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
+				} else if (MhoCell[i].getY() > SmileyCell.getY()) {
 					MhoCell[i].setY(MhoCell[i].getY() - 1); // Y coord inc.
 															// downwards
 				}
@@ -789,22 +771,28 @@ public class GameFrame extends JComponent implements ActionListener {
 			
 		}
 		
-		for (int i = 0; i <= MhoCell.length; i++) {
-			if (MhoCell[i].getY() < SmileyCell[0].getY()) {
+		for (int i = 0; i < MhoCell.length; i++) {
+			if (MhoCell[i].getY() < SmileyCell.getY()) {
 				MhoCell[i].setY(MhoCell[i].getY() + 1); // Y coord inc.
 														// downwards
-			} else if (MhoCell[i].getY() > SmileyCell[0].getY()) {
+			} else if (MhoCell[i].getY() > SmileyCell.getY()) {
 				MhoCell[i].setY(MhoCell[i].getY() - 1); // Y coord inc.
 														// downwards
-			} else if (MhoCell[i].getY() == SmileyCell[0].getY()) {
-				if (MhoCell[i].getX() < SmileyCell[0].getX()) {
+			} else if (MhoCell[i].getY() == SmileyCell.getY()) {
+				if (MhoCell[i].getX() < SmileyCell.getX()) {
 					MhoCell[i].setX(MhoCell[i].getX() + 1);
-				} else if (MhoCell[i].getX() > SmileyCell[0].getX()) {
+				} else if (MhoCell[i].getX() > SmileyCell.getX()) {
 					MhoCell[i].setX(MhoCell[i].getX() - 1);
 				}
 			}
 		}
-	
+	}
+
+	/*
+	 * isFence searches for the value pair x and y in the FenceCell array.
+	 */
+	private boolean isFence(int x, int y) {
+		return isFence(x, y, FenceCell.length);
 	}
 
 	/*
@@ -842,12 +830,13 @@ public class GameFrame extends JComponent implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (!ingame) {
 			return;
-		}
+		}	
+
 		switch (SmileyDirection) {
 
 		case DOWN:
 
-			SmileyCell[0].setY(SmileyCell[0].getY() + 1);
+			SmileyCell.setY(SmileyCell.getY() + 1);
 
 			System.out.println("Down");
 
@@ -857,7 +846,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		case LEFT:
 
-			SmileyCell[0].setX(SmileyCell[0].getX() - 1);
+			SmileyCell.setX(SmileyCell.getX() - 1);
 
 			System.out.println("Left");
 
@@ -867,7 +856,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		case RIGHT:
 
-			SmileyCell[0].setX(SmileyCell[0].getX() + 1);
+			SmileyCell.setX(SmileyCell.getX() + 1);
 
 			System.out.println("Right");
 
@@ -877,7 +866,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		case UP:
 
-			SmileyCell[0].setY(SmileyCell[0].getY() - 1);
+			SmileyCell.setY(SmileyCell.getY() - 1);
 
 			System.out.println("Up");
 
@@ -887,8 +876,8 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		case UPANDLEFT:
 
-			SmileyCell[0].setX(SmileyCell[0].getX() - 1);
-			SmileyCell[0].setY(SmileyCell[0].getY() - 1);
+			SmileyCell.setX(SmileyCell.getX() - 1);
+			SmileyCell.setY(SmileyCell.getY() - 1);
 
 			System.out.println("Up and Left");
 
@@ -898,8 +887,8 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		case UPANDRIGHT:
 
-			SmileyCell[0].setX(SmileyCell[0].getX() + 1);
-			SmileyCell[0].setY(SmileyCell[0].getY() - 1);
+			SmileyCell.setX(SmileyCell.getX() + 1);
+			SmileyCell.setY(SmileyCell.getY() - 1);
 
 			System.out.println("Up and Right");
 
@@ -909,8 +898,8 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		case DOWNANDRIGHT:
 
-			SmileyCell[0].setX(SmileyCell[0].getX() + 1);
-			SmileyCell[0].setY(SmileyCell[0].getY() + 1);
+			SmileyCell.setX(SmileyCell.getX() + 1);
+			SmileyCell.setY(SmileyCell.getY() + 1);
 
 			System.out.println("Down and Right");
 
@@ -919,8 +908,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			break;
 		case DOWNANDLEFT:
 
-			SmileyCell[0].setX(SmileyCell[0].getX() - 1);
-			SmileyCell[0].setY(SmileyCell[0].getY() + 1);
+			SmileyCell.setX(SmileyCell.getX() - 1);
+			SmileyCell.setY(SmileyCell.getY() + 1);
 
 			System.out.println("Down and Left");
 
@@ -928,14 +917,33 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			break;
 		case NONE:
-			SmileyCell[0].setY(SmileyCell[0].getY());
-			SmileyCell[0].setX(SmileyCell[0].getX());
+			SmileyCell.setY(SmileyCell.getY());
+			SmileyCell.setX(SmileyCell.getX());
 
 			break;
 		}
 		repaint();
-		if (isMho(SmileyCell[0].getX(), SmileyCell[0].getY(), 12) == true) {
+		if (isMho(SmileyCell.getX(), SmileyCell.getY(), MhoCell.length) == true) {
 			GameOver();
+		}
+		// delete mho from fence
+		for(int x = 0; x < MhoCell.length; x++){
+			if(isFence(MhoCell[x].getX(), MhoCell[x].getY()) == true) {
+				if (MhoCell.length == 0) {
+					// No mho left
+					GameOver();
+					System.out.println("You won the game!!!!!!!");
+				}
+				Cell[] tempMhoCell = new Cell[MhoCell.length-1];
+				int j=0;
+				for (int i=0; i<MhoCell.length; i++) {
+					if (i != x) {
+						tempMhoCell[j] = MhoCell[i];
+						j++;
+					} // else do nothing
+				}
+				MhoCell = tempMhoCell;
+			}
 		}
 
 	}
@@ -947,7 +955,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		drawCellTypes(g);
 
 	}
-
+	
 	void drawGrid(Graphics g) {
 
 		g.setColor(GRID_COLOR);
