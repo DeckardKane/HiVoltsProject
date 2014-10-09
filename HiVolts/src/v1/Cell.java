@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Cell extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4323266599980849245L;
 	private int myX, myY; // x,y position on grid
 	private Color myColor; // Based on alive/dead rules
 	private Image myImage; // optional image

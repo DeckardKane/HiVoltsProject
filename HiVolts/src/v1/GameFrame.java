@@ -18,7 +18,6 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -52,10 +51,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private final int Y_GRID_OFFSET = 70; // 70 pixels from top
 
-	private final int COL_COUNT = 14;
-
-	private final int ROW_COUNT = 14;
-
 	private final int DISPLAY_WIDTH;
 
 	private final int DISPLAY_HEIGHT;
@@ -88,14 +83,8 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private final Color GRID_COLOR = Color.BLACK;
 
-	private final Color SMILEY = Color.ORANGE;
-
-	private final Color FENCE = Color.CYAN;
-
-	private final Color MHO = Color.GREEN;
-
-	private final Color OUTSIDEFENCE = Color.GRAY;
-
+	//Directions
+	
 	private Direction SmileyDirection = Direction.NONE;
 
 	private static enum Direction {
@@ -104,9 +93,9 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	};
 
+	//Boolean flags
+	
 	private boolean ingame = false;
-	private boolean mhoactive = false;
-
 
 	// Methods
 
@@ -159,6 +148,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		actionMap.put(Direction.UP, new AbstractAction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4971154488127225952L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -174,6 +168,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		actionMap.put(Direction.DOWN, new AbstractAction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 6239815442467611636L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -187,6 +186,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				Direction.LEFT);
 
 		actionMap.put(Direction.LEFT, new AbstractAction() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -1014579560679734420L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -203,6 +207,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		actionMap.put(Direction.RIGHT, new AbstractAction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 2178548698356335736L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -218,6 +227,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		actionMap.put(Direction.JUMP, new AbstractAction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -621020681565499781L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -231,6 +245,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				Direction.UPANDLEFT);
 
 		actionMap.put(Direction.UPANDLEFT, new AbstractAction() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -221844758514001376L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -247,6 +266,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		actionMap.put(Direction.UPANDRIGHT, new AbstractAction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 5986345215633994605L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -260,6 +284,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				Direction.DOWNANDRIGHT);
 
 		actionMap.put(Direction.DOWNANDRIGHT, new AbstractAction() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4942072327431687504L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -275,6 +304,11 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		actionMap.put(Direction.DOWNANDLEFT, new AbstractAction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1091693991622853693L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -289,6 +323,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				Direction.SIT);
 
 		actionMap.put(Direction.SIT, new AbstractAction() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -6587852390563056463L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

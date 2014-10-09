@@ -17,18 +17,16 @@
 
 package v1;
 
-import java.awt.Component;
-
-import java.awt.Dimension;
-
 //Changing this to just include the entire swing library.
 import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
-import java.io.*;
 
 public class MainClass extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8765284626059265563L;
+
 	public static void main(String[] args) {
 		final int HEIGHT = 1000;
 		final int WIDTH = 1200;
