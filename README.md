@@ -1,7 +1,7 @@
 HiVoltsProject
 ==============
 
-This is a repo for our HiVolts assignment in our AP Computer Science Class.
+This is a repository for our HiVolts assignment in our AP Computer Science Class.
 
 ###Who are we?
 We're a group of high school students taking the AP Computer Science Class.
@@ -20,7 +20,8 @@ We're not sure why you'd want to do that, but feel free to send a request to Doc
 * My father, Stephen Turnbull was very helpful in the completion of this project, he gave me pointers and helped me debug.
 
 ###Sources of code:
-* In our first iteration, we used an example keylistener from [here](http://examples.javacodegeeks.com/desktop-java/awt/event/a-complete-keylistener-example/).
+* In our first iteration, we used an example keylistener from [here](http://examples.javacodegeeks.com/desktop-java/awt/event/a-complete-keylistener-example/). We scrapped the usage of keylistener in favor of action/input mapping shortly after, so that code is no longer in use, but it proved helpful in our early iterations.
+
 
 ###Problems We Encountered:
 * We had several issues with our collision detection, with several different fixes.
@@ -32,7 +33,8 @@ We're not sure why you'd want to do that, but feel free to send a request to Doc
 * We decided as a group to allow the player dictate the pace of the game, meaning the player can move as quickly or as slowly as they wish.
 
 ###Assumptions We Made in the Bleak Storm of Ambiguity:
-* Honestly, the [documentation page](http://paleyontology.com/AP_CS/hivolts) (so kindly provided by Mr. Paley of Gunn), was not very ambiguous. It clearly spelled out the rules and requirements we needed to implement.
+* Honestly, the [documentation page](http://paleyontology.com/AP_CS/hivolts) (so kindly provided by Mr. Paley of Gunn High School), was not very ambiguous. It clearly spelled out the rules and requirements we needed to implement.
 
 ###Justifications for Choices We Made That Resulted in Fewer Features Than the Requirements Call For:
 * When we decided to allow the player to dictate the pace of the game, we got rid of our TurnControl class, which in turn removes the requirement of printing out the turn state. We personally think having turn being indistinguishable to the computer is better, as it allows the player to learn on their own terms, rather than having a set time to wait after they move.
+* We also failed to implement Mho AI completely. The one tiny fault is that the Mhos do not move in order of distance to the player, but in the ordering that they are generated (i.e. their number in the Mho array). Frankly, we failed to implement this because we ran out of time, and we felt that gameplay was 99.9% the same, besides a few strange Mho patterns being created due to ordering issues where mhos could not move onto each other.
