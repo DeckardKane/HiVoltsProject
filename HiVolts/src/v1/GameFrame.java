@@ -649,8 +649,8 @@ public class GameFrame extends JComponent implements ActionListener {
 	 * System.getProperty("java.class.path")); return img; }
 	 */
 	
-	// This method calculates a random number from 1 to 12 to find 
-	// 
+	// This method calculates a random number from 1 to 12 to find
+	// coordinates of cells when spawning. 
 	private int RandomNumberInRange(int start, int end) {
 
 		double randd = Math.random();
@@ -662,7 +662,10 @@ public class GameFrame extends JComponent implements ActionListener {
 		return (int) randd;
 
 	}
-
+	
+	// When the Reload button is clicked, it makes ingame true to allow 
+	// movement, removes gameOverLabel, restarts initPositions, and refreshes
+	// Graphics. 
 	public void Reload() {
 		gameOverLabel.setVisible(false);
 		ingame = true;
@@ -671,7 +674,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
-	// This method only exists because Reload is used in an actionmap, and
+	// This method only exists because Reload is used in an ActionMap, and
 	// pitches a fit when used by our endgame prompts.
 	public void Restart() {
 		gameOverLabel.setVisible(false);
@@ -679,7 +682,9 @@ public class GameFrame extends JComponent implements ActionListener {
 		initPositions();
 		repaint();
 	}
-
+	
+	// GameOver disables movement and shows Game Over Label. It also 
+	// prints game over. 
 	public void GameOver() {
 		ingame = false;
 		gameOverLabel.setVisible(true);
@@ -1264,7 +1269,11 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 
 	}
-
+	
+	// To remove the Mhos, this method removes specific elements from the array. Because 
+	// we didn't use ArrayList, we had to find a shortcut that allows us to remove 
+	// specific elements. So, when a Mho hits a fence, it creates a temporary cell, 
+	// then makes the MhoCell equal the temporary array. 
 	public void killMhos() {
 		// Delete mho from fence
 		System.out.println("The mho cell array is " + MhoCell.length + " long");
@@ -1288,16 +1297,19 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		System.out.println("After sweeping, the mho cell array is "
 				+ MhoCell.length + " long");
+		// If there are no Mhos left, then the handleWin is invoked,
+		// showing a specific dialogue box to allow the user to restart
+		// or end. 
+
 		if (MhoCell.length == 0) {
-			// No mho left
-			GameOver();
+			// No mho lefts 
 			handleWin();
-			System.out.println("You won the game!!!!!!!");
+			System.out.println("You won the game!");
 		}
 	}
 
 	public void handleWin() {
-		// Display the showOptionDialog
+		// Display the showOptionDialog. This is the dialogue box when the user wins 
 		int choice = JOptionPane.showOptionDialog(null,
 				"You win! Do you want to play again?", "You Won!",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -1312,7 +1324,7 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	public void handleLoseMho() {
-		// Display the showOptionDialog
+		// Display the showOptionDialog. This dialogue pops up when the player loses to a mho. 
 		int choice = JOptionPane.showOptionDialog(null,
 				"You were killed by a mho. Do you want to play again?",
 				"You Lose", JOptionPane.YES_NO_OPTION,
@@ -1327,11 +1339,11 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	public void handleLoseFence() {
-		// Display the showOptionDialog
+		// Display the showOptionDialog. This dialogue pops up when you die. 
 		int choice = JOptionPane
 				.showOptionDialog(
 						null,
-						"You moved onto an electric fence and died. Do you want to play again?",
+						"You moved onto a fence and died. Do you want to play again?",
 						"You Lose", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, null, null);
 
@@ -1343,14 +1355,17 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This method invokes the methods that draw the cells (Mhos, Fences, etc.) 
+	// and the grid. 
 	public void paintComponent(Graphics g) {
 
 		drawGrid(g);
-
 		drawCellTypes(g);
 
 	}
-
+	
+	// The drawGrid method draws the Grid by drawing the lines of the Grid, then spawning
+	// the empty cells in their specific location. 
 	void drawGrid(Graphics g) {
 
 		g.setColor(GRID_COLOR);

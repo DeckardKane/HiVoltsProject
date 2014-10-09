@@ -1,9 +1,9 @@
 package v1;
 
+// Imported Libraries 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.JPanel;
 
 public class Cell extends JPanel {
