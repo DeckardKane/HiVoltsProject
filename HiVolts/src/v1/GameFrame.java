@@ -690,7 +690,15 @@ public class GameFrame extends JComponent implements ActionListener {
 		gameOverLabel.setVisible(true);
 		System.out.println("Game Over");
 	}
-
+	/*
+	 * This method is used to draw cells through the use of the draw method
+	 * located in the cell class. It takes the randomly generated coordinates
+	 * for fences and Mhos and uses them in creating them on the grid. The last
+	 * 4 methods within drawCellTypes draw the outside border that encompasses
+	 * the grid. All of these coordinates are set as fences so that the program
+	 * will recognize it if the player decides to move the smiley into one of
+	 * these coordinates.
+	 */
 	void drawCellTypes(Graphics g) {
 
 		SmileyCell.draw(X_GRID_OFFSET, Y_GRID_OFFSET, CELL_WIDTH,
@@ -771,6 +779,18 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
+	/*
+	 * The following ten methods are executed when a key binding is used. This
+	 * includes the keys Q, W, E, A, S, D, Z, X, and C and are defined above
+	 * this portion of the code. When each of these method is run, the method
+	 * first checks the future coordinate of the smiley with the coordinates of
+	 * the Fences. This allows the game to determine whether the next movement
+	 * will end the game, if it an illegal movement, or if it is a legal one the
+	 * movement will be made. The else statements following the if statement
+	 * catch illegal moves which execute the methods GameOver and
+	 * handleLoseFence.
+	 */
+	// This is the method executed when the player moves the smiley up.
 	private void onUp() {
 		if (isFence(SmileyCell.getX(), SmileyCell.getY() - 1) == false) {
 			if (SmileyCell.getY() > 1) {
@@ -785,6 +805,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This is the method executed when the player moves the smiley down.
 	private void onDown() {
 		if (isFence(SmileyCell.getX(), SmileyCell.getY() + 1) == false) {
 			if (SmileyCell.getY() < MAX_GRID_SIZE) {
@@ -799,6 +820,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This is the method executed when the player moves the smiley left.
 	private void onLeft() {
 		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY()) == false) {
 			if (SmileyCell.getX() > 1) {
@@ -813,6 +835,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This is the method executed when the player moves the smiley right.
 	private void onRight() {
 		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY()) == false) {
 			if (SmileyCell.getX() < MAX_GRID_SIZE) {
@@ -828,14 +851,18 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This is the method executed when the player jumps.
 	private void onJump() {
 		SmileyDirection = Direction.JUMP;
 	}
 
+	// This is the method executed when the player sits.
 	private void onSit() {
 		SmileyDirection = Direction.SIT;
 	}
 
+	// This is the method executed when the player moves the smiley up and
+	// right.
 	private void UpAndRight() {
 		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY() - 1) == false) {
 			if (SmileyCell.getX() < MAX_GRID_SIZE && SmileyCell.getY() > 1) {
@@ -851,6 +878,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This is the method executed when the player moves the smiley up and left.
 	private void UpAndLeft() {
 		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY() - 1) == false) {
 			if (SmileyCell.getX() > 1 && SmileyCell.getY() > 1) {
@@ -867,6 +895,8 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
+	// This is the method executed when the player moves the smiley down and
+	// right.
 	private void DownAndRight() {
 		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY() + 1) == false) {
 			if (SmileyCell.getX() < MAX_GRID_SIZE
@@ -883,6 +913,8 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
+	// This is the method executed when the player moves the smiley down and
+	// left.
 	private void DownAndLeft() {
 		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY() + 1) == false) {
 			if (SmileyCell.getX() > 1 && SmileyCell.getY() < MAX_GRID_SIZE) {
@@ -899,14 +931,15 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private void mhoMovement() {
 		/*
-		 * After player moves, mho movement is done in accordance to smiley
-		 * coordinates. Afterwards, mho coordinates must be detected for
-		 * collision.
+		 * After the player moves the smiley, Mho movement is done by comparing
+		 * the X and Y values of each Mho. This is done by running a for loop so
+		 * that each Mho in the array which stores Mhos is accounted for and
+		 * moved. After calculating the direction that the Mho must move, the X
+		 * and Y values are changed accordingly and then checked for collision
+		 * with fences.
 		 */
-
 		for (int i = 0; i < MhoCell.length; i++) {
 			int tempX = 0;
-
 			int tempY = 0;
 			// If a Mho is directly horizontal or vertical to you, the Mho MUST
 			// move directly towards you one square.
@@ -1081,7 +1114,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		// Now we sweep for all the mhos that moved onto fences, and kill them.
 		killMhos();
-
 	}
 
 	/*
@@ -1099,37 +1131,41 @@ public class GameFrame extends JComponent implements ActionListener {
 	private boolean isFence(int x, int y, int CellLength) {
 		for (int i = 0; i < CellLength; i++) {
 			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
-
 				return true;
-
 			}
-
 		}
-
 		return false;
 	}
 
+	/*
+	 * isMho searches for the value pair x and y in the MhoCell array up to the
+	 * element designated by CellLength. CellLength is used so only assigned
+	 * values are searched during initialization.
+	 */
 	private boolean isMho(int x, int y, int CellLength) {
 		for (int i = 0; i < CellLength; i++) {
-
 			if (MhoCell[i].getX() == x && MhoCell[i].getY() == y) {
-
 				return true;
-
 			}
-
 		}
-
 		return false;
 	}
 
+	/*
+	 * The method actionPerformed holds the cases that will be run when a key is
+	 * pressed. The methods increases or decreases an X and/or Y value of the
+	 * smiley, prints a line of text to the console, and sets the player turn to
+	 * end while also initiating Mho movement.
+	 * 
+	 * @see
+	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (!ingame) {
 			return;
 		}
-
 		switch (SmileyDirection) {
-
+		// This case is for when the smiley is moved down.
 		case DOWN:
 
 			SmileyCell.setY(SmileyCell.getY() + 1);
@@ -1141,7 +1177,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the smiley is moved left.
 		case LEFT:
 
 			SmileyCell.setX(SmileyCell.getX() - 1);
@@ -1153,7 +1189,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the smiley is moved right.
 		case RIGHT:
 
 			SmileyCell.setX(SmileyCell.getX() + 1);
@@ -1165,7 +1201,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the smiley is moved up.
 		case UP:
 
 			SmileyCell.setY(SmileyCell.getY() - 1);
@@ -1177,7 +1213,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the smiley is moved up and left.
 		case UPANDLEFT:
 
 			SmileyCell.setX(SmileyCell.getX() - 1);
@@ -1190,7 +1226,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the smiley is moved up and right.
 		case UPANDRIGHT:
 
 			SmileyCell.setX(SmileyCell.getX() + 1);
@@ -1203,7 +1239,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the smiley is moved down and right.
 		case DOWNANDRIGHT:
 
 			SmileyCell.setX(SmileyCell.getX() + 1);
@@ -1216,6 +1252,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
+		// This case is for when the smiley is moved down and left.
 		case DOWNANDLEFT:
 
 			SmileyCell.setX(SmileyCell.getX() - 1);
@@ -1228,7 +1265,9 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
+		// This case is for when the player jumps. It randomly creates
+		// coordinates and sets the smiley to that poisiton. This case does not
+		// end the player turn.
 		case JUMP:
 			int jumpX = RandomNumberInRange(1, 12);
 			int jumpY = RandomNumberInRange(1, 12);
@@ -1246,7 +1285,8 @@ public class GameFrame extends JComponent implements ActionListener {
 			SmileyDirection = Direction.NONE;
 
 			break;
-
+		// This case is for when the player sits, or ends the turn without any
+		// movement.
 		case SIT:
 			SmileyCell.setY(SmileyCell.getY());
 			SmileyCell.setX(SmileyCell.getX());
@@ -1258,6 +1298,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
+
 		case NONE:
 
 			break;
@@ -1269,7 +1310,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 
 	}
-	
 	// To remove the Mhos, this method removes specific elements from the array. Because 
 	// we didn't use ArrayList, we had to find a shortcut that allows us to remove 
 	// specific elements. So, when a Mho hits a fence, it creates a temporary cell, 
