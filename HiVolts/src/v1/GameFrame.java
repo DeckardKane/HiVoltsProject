@@ -18,7 +18,9 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
@@ -526,10 +528,18 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	public void Reload() {
 		gameOverLabel.setVisible(false);
-		ingame = true;
+		ingame = true; 
 		initPositions();
 		repaint();
 
+	}
+	
+	//This method only exists because Reload is used in an actionmap, and pitches a fit when used by our endgame prompts.
+	public void Restart() {
+		gameOverLabel.setVisible(false);
+		ingame = true; 
+		initPositions();
+		repaint();
 	}
 
 	public void GameOver() {
@@ -625,9 +635,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				SmileyDirection = Direction.UP;
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 
@@ -637,9 +649,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				SmileyDirection = Direction.DOWN;
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 
@@ -649,9 +663,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				SmileyDirection = Direction.LEFT;
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 
@@ -662,9 +678,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 
@@ -683,9 +701,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 
@@ -696,10 +716,12 @@ public class GameFrame extends JComponent implements ActionListener {
 				
 			} else {
 				GameOver();
+				handleLoseFence();
 
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 
@@ -709,9 +731,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				SmileyDirection = Direction.DOWNANDRIGHT;
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 
 	}
@@ -722,9 +746,11 @@ public class GameFrame extends JComponent implements ActionListener {
 				SmileyDirection = Direction.DOWNANDLEFT;
 			} else {
 				GameOver();
+				handleLoseFence();
 			}
 		} else {
 			GameOver();
+			handleLoseFence();
 		}
 	}
 	
@@ -1072,6 +1098,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		repaint();
 		if (isMho(SmileyCell.getX(), SmileyCell.getY(), MhoCell.length) == true) {
 			GameOver();
+			handleLoseMho();
 		}
 		
 
@@ -1101,7 +1128,56 @@ public class GameFrame extends JComponent implements ActionListener {
 		if (MhoCell.length == 0) {
 			// No mho left
 			GameOver();
+			handleWin();
 			System.out.println("You won the game!!!!!!!");
+		}
+	}
+	
+	public void handleWin() {
+		//Display the showOptionDialog
+		int choice = JOptionPane.showOptionDialog(null,
+				"You win! Do you want to play again?",
+				"You Won!", JOptionPane.YES_NO_OPTION, 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, null, null);
+		
+		//Interpret the choice of the user
+		if (choice == JOptionPane.YES_OPTION) {
+			Restart();
+		} else {
+			System.exit(0);
+		}
+	}
+	
+	public void handleLoseMho() {
+		//Display the showOptionDialog
+		int choice = JOptionPane.showOptionDialog(null,
+				"You were killed by a mho. Do you want to play again?",
+				"You Lose", JOptionPane.YES_NO_OPTION, 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, null, null);
+
+		//Interpret the choice of the user
+		if (choice == JOptionPane.YES_OPTION) {
+			Restart();
+		} else {
+			System.exit(0);
+		}
+	}
+	
+	public void handleLoseFence() {
+		//Display the showOptionDialog
+		int choice = JOptionPane.showOptionDialog(null,
+				"You moved onto an electric fence and died. Do you want to play again?",
+				"You Lose", JOptionPane.YES_NO_OPTION, 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, null, null);
+
+		//Interpret the choice of the user
+		if (choice == JOptionPane.YES_OPTION) {
+			Restart();
+		} else {
+			System.exit(0);
 		}
 	}
 	
