@@ -11,7 +11,7 @@ The mission is to recreate a 1970's computer game known as HiVolts, using our kn
 and our previous knowledge from Conway's Game of Life and similar projects.
 
 ###How do I run this?
-Well, it's not fully functional as of 10/6, but if you really want to run at this point, you'll need an IDE. When our project is complete (hopefully by 10/9!), we'll have a click to run file available.
+These points of data make a beautiful line, and we're out of beta, we're releasing on time! Version 1.0 has been released! You can run our game by downloading the jar executable file and simply clicking it. 
 
 ###Can I fork this?
 We're not sure why you'd want to do that, but feel free to send a request to DoctorRyuko.
