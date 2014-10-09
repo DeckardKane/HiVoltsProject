@@ -32,30 +32,26 @@ public class Cell extends JPanel {
 	 * Getters and setters for myX, myY, and myColor. These are used in
 	 * GameFrame to get specific values which relate to the cell.
 	 */
-	
-	// Getter for X coordinate of cell 
 	public int getX() {
 		return myX;
 	}
-	// Getter for Y coordinate of cell 
+
 	public int getY() {
 		return myY;
 	}
-	
-	// Getter for color of cell 
+
 	public Color getColor() {
 		return myColor;
 	}
-	
-	// Setter X for color of cell 
+
 	public void setX(int x) {
 		myX = x;
 	}
-	// Setter Y for color of cell 
+
 	public void setY(int y) {
 		myY = y;
 	}
-	// Setter for color of cell 
+
 	public void setColor(Color color) {
 		myColor = color;
 	}

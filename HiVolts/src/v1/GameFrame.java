@@ -24,7 +24,7 @@ import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 public class GameFrame extends JComponent implements ActionListener {
-
+	
 	// VARIABLES
 
 	// This section contains Variables that contain all of the settings for
@@ -56,7 +56,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	public static Cell[][] cell = new Cell[ROWS][COLS];
 
-	// CELL PARAMETERS
+	// CELL PARAMETERS 
 
 	// This defines number of pixels the width and height need.
 	private final int CELL_WIDTH = 57;
@@ -109,32 +109,31 @@ public class GameFrame extends JComponent implements ActionListener {
 	// This is the color of the Grid, which is black. We thought this
 	// is the most appropriate color, and we didn't wan't to include a
 	// background.
-
+	
 	private final Color GRID_COLOR = Color.BLACK;
 
 	// This contains the Directions that can be passed to the Smiley, including
-	// all the key commands, Jump, and Restart.
+	// all the key commands, Jump, and Restart. 
 
 	private static enum Direction {
 
 		UP, DOWN, LEFT, RIGHT, NONE, UPANDLEFT, DOWNANDLEFT, UPANDRIGHT, DOWNANDRIGHT, JUMP, SIT
 
 	};
-
-	// This is the default Direction, making it not move.
-
+	// This is the default Direction, making it not move. 
+	
 	private Direction SmileyDirection = Direction.NONE;
 
-	// Boolean flags. This will not allow key inputs to be accepted.
+	// Boolean flags. This will not allow key inputs to be accepted. 
 
 	private boolean ingame = false;
 
-	// METHODS
+	// METHODS 
 
 	// This is the constructor, which passes the height and width of the JFrame
 	// to the game. Then, it calls init() method, which sets the initial state
-	// of the game.
-
+	// of the game. 
+	
 	public GameFrame(int width, int height) {
 
 		DISPLAY_WIDTH = width;
@@ -143,43 +142,42 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
-	// The init() method creates the initial state of the game with all of
+	// The init() method creates the initial state of the game with all of 
 	// the elements on the screen.
 	public void init() {
-		// Sets ingame to true to allow game to start.
+		// Sets ingame to true to allow game to start. 
 		ingame = true;
-
-		// Sets size, and repaints it to refresh Graphics.
+		
+		// Sets size, and repaints it to refresh Graphics. 
 		setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		repaint();
-
-		// This sets the initial coordinates of the cell types (Smiley, Mho,
-		// Fence)
-		// using the initCells() and initPositions() method. InitCells() also
-		// creates the
-		// "empty" cells.
+		
+		// This sets the initial coordinates of the cell types (Smiley, Mho, Fence)
+		// using the initCells() and initPositions() method. InitCells() also creates the
+		// "empty" cells. 
 		initCells();
 		initPositions();
 
-		// This sets the title "HiVolts - APCS" above the grid.
+		
+		// This sets the title "HiVolts - APCS" above the grid. 
 		Title = new JLabel("HiVolts - APCS");
 		Title.setBounds(300, -5, 500, 100);
-		// Lucida Console font
+		// Lucida Console font 
 		Title.setFont(MYFONT);
 		add(Title);
 		Title.setVisible(true);
-
-		// This sets the title "Option" above option buttons.
+		
+		// This sets the title "Option" above option buttons. 
 		Title = new JLabel("Options");
 		Title.setBounds(950, -5, 500, 100);
-		// Lucida Console font
+		// Lucida Console font 
 		Title.setFont(MYFONT);
 		add(Title);
 		Title.setVisible(true);
 
-		// KEYS
-
-		// Allows ActionMap / InputMap to allow Computer Keys to start methods
+		// KEYS 
+		
+		// Allows ActionMap / InputMap to allow Computer Keys to start methods  
 		ActionMap actionMap = this.getActionMap();
 		InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
@@ -287,7 +285,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
+		
 		// When E key is clicked, the method UpAndRight() is invoked
 		// and sets Direction to UPANDRIGHT
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_E, 0),
@@ -351,9 +349,9 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
+		
 		// When S key is clicked, the method onSit() is invoked
-		// and sets Direction to SIT, meaning it doesn't move.
+		// and sets Direction to SIT, meaning it doesn't move. 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0),
 
 		Direction.SIT);
@@ -374,32 +372,32 @@ public class GameFrame extends JComponent implements ActionListener {
 
 		});
 		// The Jump Method is invoked when J button is clicked. It
-		// invokes onJump(), which randomly spawns the Smiley.
+		// invokes onJump(), which randomly spawns the Smiley. 
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_J, 0),
 
-		Direction.JUMP);
+				Direction.JUMP);
 
-		actionMap.put(Direction.JUMP, new AbstractAction() {
+				actionMap.put(Direction.JUMP, new AbstractAction() {
 
-			/**
+					/**
 					 * 
 					 */
-			private static final long serialVersionUID = -621020681565499781L;
+					private static final long serialVersionUID = -621020681565499781L;
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
 
-				onJump();
+						onJump();
 
-			}
+					}
 
-		});
-
-		// BUTTONS ARE MADE
-
+				});
+				
+		// BUTTONS ARE MADE 
+				
 		// This button restarts the game and randomly spawns the cell types
-		// for new game. Invokes Reload() method.
-
+		// for new game. Invokes Reload() method. 
+				
 		Reload = new JButton();
 
 		Reload.setBounds(980, 100, 150, 36);
@@ -416,11 +414,10 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
-
-		// This button restarts the game and randomly spawns Smiley in the
-		// original
-		// game. Invokes onJump() method.
-
+		
+		// This button restarts the game and randomly spawns Smiley in the original
+		// game. Invokes onJump() method. 
+		
 		Jump = new JButton();
 
 		Jump.setBounds(980, 150, 150, 36);
@@ -437,41 +434,41 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 
 		});
+		
+		// This makes the buttons visible. 
+				add(Reload);
+				add(Jump);
 
-		// This makes the buttons visible.
-		add(Reload);
-		add(Jump);
-
-		Reload.setVisible(true);
-		Jump.setVisible(true);
-
-		// LABELS
-
-		// This label which is red is created, but not shown until the
-		// GameOver()
-		// is passed.
-
+				Reload.setVisible(true);
+				Jump.setVisible(true);
+		
+		// LABELS 
+		
+		// This label which is red is created, but not shown until the GameOver()
+		// is passed. 
+		
 		gameOverLabel = new JLabel("State: Game Over");
 		gameOverLabel.setBounds(350, 900, 500, 50);
 		gameOverLabel.setFont(MYFONT);
 		gameOverLabel.setForeground(Color.red);
 		add(gameOverLabel);
 		gameOverLabel.setVisible(false);
-
-		// This sets the timer. This will have minimal delay and quick speed.
+		
+		
+		
+		// This sets the timer. This will have minimal delay and quick speed. 
 		timer = new Timer(1, this);
 		timer.setInitialDelay(0);
 		timer.start();
-
-		// Repaint refreshes Graphics
+		
+		// Repaint refreshes Graphics 
 		repaint();
 
 	}
 
-	// InitCells method sets the Grid Cells to Black without any images. These
-	// will
-	// be the "empty" cells.
-
+	// InitCells method sets the Grid Cells to Black without any images. These will
+	// be the "empty" cells. 
+	
 	public void initCells() {
 
 		for (int row = 0; row < ROWS; row++) {
@@ -481,18 +478,16 @@ public class GameFrame extends JComponent implements ActionListener {
 			}
 		}
 	}
-
+	
 	// The initPositions method adds elements to all of the Fence arrays,
-	// Mho arrays, and Fence arrays.
+	// Mho arrays, and Fence arrays. 
 	public void initPositions() {
 
 		bottomOutsideCell = new Cell[13];
 
 		for (int i = 0; i < bottomOutsideCell.length; i++) {
-			// Accesses all of the elements, sets positions from (i(0-13), 13),
-			// and adds
-			// image "Fence.png". Creates row of fences in outside boundary at
-			// bottom.
+			// Accesses all of the elements, sets positions from (i(0-13), 13), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at bottom. 
 			bottomOutsideCell[i] = new Cell(i, 13, null, readImage("Fence.png"));
 
 		}
@@ -500,10 +495,8 @@ public class GameFrame extends JComponent implements ActionListener {
 		rightOutsideCell = new Cell[14];
 
 		for (int i = 0; i < rightOutsideCell.length; i++) {
-			// Accesses all of the elements, sets positions from (13, i(0-13)),
-			// and adds
-			// image "Fence.png". Creates row of fences in outside boundary at
-			// right.
+			// Accesses all of the elements, sets positions from (13, i(0-13)), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at right.  
 			rightOutsideCell[i] = new Cell(13, i, null, readImage("Fence.png"));
 
 		}
@@ -511,10 +504,8 @@ public class GameFrame extends JComponent implements ActionListener {
 		leftOutsideCell = new Cell[14];
 
 		for (int i = 0; i < leftOutsideCell.length; i++) {
-			// Accesses all of the elements, sets positions from (0, i(0-13)),
-			// and adds
-			// image "Fence.png". Creates row of fences in outside boundary at
-			// left.
+			// Accesses all of the elements, sets positions from (0, i(0-13)), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at left.
 			leftOutsideCell[i] = new Cell(0, i, null, readImage("Fence.png"));
 
 		}
@@ -522,15 +513,13 @@ public class GameFrame extends JComponent implements ActionListener {
 		topOutsideCell = new Cell[14];
 
 		for (int i = 0; i < topOutsideCell.length; i++) {
-			// Accesses all of the elements, sets positions from (i(0-13),0),
-			// and adds
-			// image "Fence.png". Creates row of fences in outside boundary at
-			// top.
+			// Accesses all of the elements, sets positions from (i(0-13),0), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at top. 
 			topOutsideCell[i] = new Cell(i, 0, null, readImage("Fence.png"));
 
 		}
 
-		// This is for debugging code, Coordinates of Hivolts.
+		// This is for debugging code, Coordinates of Hivolts. 
 		System.out.println("COORDINATES OF HIVOLTS");
 
 		// Now let's place 20 fence cells randomly on the grid.
@@ -539,7 +528,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		for (int i = 0; i < FenceCell.length; i++) {
 			// Using the RandomNumberInRange to find random number from
 			// Min Grid to Max Grid Size.
-
+			
 			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
 			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
@@ -562,7 +551,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			 * new x and y coordinates until it returns false.
 			 */
 
-			// This checks that the Fence Cell
+			// This checks that the Fence Cell 
 			while (isFence(x, y, i)) {
 
 				x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
@@ -571,16 +560,16 @@ public class GameFrame extends JComponent implements ActionListener {
 				System.out.println("Fence " + i + " may have coordinates of: ("
 						+ x + "," + y + ")");
 			}
-			// Debugging.
+			// Debugging. 
 			FenceCell[i] = new Cell(x, y, null, readImage("Fence.png"));
 			System.out.println("New Fence " + i + " has coordinates of: (" + x
 					+ "," + y + ")");
 
 		}
 
-		// These for loops places 12 Mho cells. This first randomly spawns
-		// the Mhos, but also checks that there is no overlap with other
-		// cell types.
+		// These for loops places 12 Mho cells. This first randomly spawns 
+		// the Mhos, but also checks that there is no overlap with other 
+		// cell types. 
 		MhoCell = new Cell[12];
 
 		for (int i = 0; i < MhoCell.length; i++) {
@@ -589,7 +578,7 @@ public class GameFrame extends JComponent implements ActionListener {
 
 			int y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
-			// Debugging.
+			// Debugging. 
 			System.out.println("Mho " + i + " may have coordinates of: (" + x
 					+ "," + y + ")");
 
@@ -603,17 +592,16 @@ public class GameFrame extends JComponent implements ActionListener {
 						+ x + "," + y + ")");
 			}
 
-			// Debugging.
+			// Debugging. 
 			MhoCell[i] = new Cell(x, y, null, readImage("Mho.png"));
 			System.out.println("New Mho " + i + " has coordinates of: (" + x
 					+ "," + y + ")");
 		}
 
 		// Now let's place the only Smiley :)
-
-		// This randomly spawns the Smiley and uses the isFence and isMho
-		// methods
-		// to check if there is overlap.
+		
+		// This randomly spawns the Smiley and uses the isFence and isMho methods
+		// to check if there is overlap. 
 		int x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
 		int y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
@@ -625,18 +613,18 @@ public class GameFrame extends JComponent implements ActionListener {
 			y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
 		}
-
-		// Debugging.
+		
+		// Debugging. 
 		SmileyCell = new Cell(x, y, null, readImage("Smiley.png"));
 		System.out.println("Smiley has coordinates of: (" + x + " and " + y
 				+ ")");
 
 	}
-
-	// To get the images from the root folder, we used a readImage method
-	// that finds the image. It also catches any exceptions as to not
-	// crash the program.
-
+	
+	// To get the images from the root folder, we used a readImage method 
+	// that finds the image. It also catches any exceptions as to not 
+	// crash the program. 
+	
 	private BufferedImage readImage(String name) {
 		BufferedImage img = null;
 		try {
@@ -648,9 +636,9 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		return img;
 	}
-
-	// Previous code for readImage that finds image in the bin folder
-
+	
+	// Previous code for readImage that finds image in the bin folder 
+	
 	/*
 	 * private BufferedImage readImage(String name) { BufferedImage img = null;
 	 * try { InputStream stream = getClass().getResourceAsStream(name); if
@@ -660,9 +648,9 @@ public class GameFrame extends JComponent implements ActionListener {
 	 * " not found - exception"); } System.out.println("Classpath is: " +
 	 * System.getProperty("java.class.path")); return img; }
 	 */
-
+	
 	// This method calculates a random number from 1 to 12 to find
-	// coordinates of cells when spawning.
+	// coordinates of cells when spawning. 
 	private int RandomNumberInRange(int start, int end) {
 
 		double randd = Math.random();
@@ -674,10 +662,10 @@ public class GameFrame extends JComponent implements ActionListener {
 		return (int) randd;
 
 	}
-
-	// When the Reload button is clicked, it makes ingame true to allow
+	
+	// When the Reload button is clicked, it makes ingame true to allow 
 	// movement, removes gameOverLabel, restarts initPositions, and refreshes
-	// Graphics.
+	// Graphics. 
 	public void Reload() {
 		gameOverLabel.setVisible(false);
 		ingame = true;
@@ -694,24 +682,14 @@ public class GameFrame extends JComponent implements ActionListener {
 		initPositions();
 		repaint();
 	}
-
-	// GameOver disables movement and shows Game Over Label. It also
-	// prints game over.
+	
+	// GameOver disables movement and shows Game Over Label. It also 
+	// prints game over. 
 	public void GameOver() {
 		ingame = false;
 		gameOverLabel.setVisible(true);
 		System.out.println("Game Over");
 	}
-
-	/*
-	 * This method is used to draw cells through the use of the draw method
-	 * located in the cell class. It takes the randomly generated coordinates
-	 * for fences and Mhos and uses them in creating them on the grid. The last
-	 * 4 methods within drawCellTypes draw the outside border that encompasses
-	 * the grid. All of these coordinates are set as fences so that the program
-	 * will recognize it if the player decides to move the smiley into one of
-	 * these coordinates.
-	 */
 
 	void drawCellTypes(Graphics g) {
 
@@ -793,18 +771,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
-	/*
-	 * The following ten methods are executed when a key binding is used. This
-	 * includes the keys Q, W, E, A, S, D, Z, X, and C and are defined above
-	 * this portion of the code. When each of these method is run, the method
-	 * first checks the future coordinate of the smiley with the coordinates of
-	 * the Fences. This allows the game to determine whether the next movement
-	 * will end the game, if it an illegal movement, or if it is a legal one the
-	 * movement will be made. The else statements following the if statement
-	 * catch illegal moves which execute the methods GameOver and
-	 * handleLoseFence.
-	 */
-	// This is the method executed when the player moves the smiley up.
 	private void onUp() {
 		if (isFence(SmileyCell.getX(), SmileyCell.getY() - 1) == false) {
 			if (SmileyCell.getY() > 1) {
@@ -819,7 +785,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This is the method executed when the player moves the smiley down.
 	private void onDown() {
 		if (isFence(SmileyCell.getX(), SmileyCell.getY() + 1) == false) {
 			if (SmileyCell.getY() < MAX_GRID_SIZE) {
@@ -834,7 +799,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This is the method executed when the player moves the smiley left.
 	private void onLeft() {
 		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY()) == false) {
 			if (SmileyCell.getX() > 1) {
@@ -849,7 +813,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This is the method executed when the player moves the smiley right.
 	private void onRight() {
 		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY()) == false) {
 			if (SmileyCell.getX() < MAX_GRID_SIZE) {
@@ -865,18 +828,14 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This is the method executed when the player jumps.
 	private void onJump() {
 		SmileyDirection = Direction.JUMP;
 	}
 
-	// This is the method executed when the player sits.
 	private void onSit() {
 		SmileyDirection = Direction.SIT;
 	}
 
-	// This is the method executed when the player moves the smiley up and
-	// right.
 	private void UpAndRight() {
 		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY() - 1) == false) {
 			if (SmileyCell.getX() < MAX_GRID_SIZE && SmileyCell.getY() > 1) {
@@ -892,7 +851,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This is the method executed when the player moves the smiley up and left.
 	private void UpAndLeft() {
 		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY() - 1) == false) {
 			if (SmileyCell.getX() > 1 && SmileyCell.getY() > 1) {
@@ -909,8 +867,6 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This is the method executed when the player moves the smiley down and
-	// right.
 	private void DownAndRight() {
 		if (isFence(SmileyCell.getX() + 1, SmileyCell.getY() + 1) == false) {
 			if (SmileyCell.getX() < MAX_GRID_SIZE
@@ -927,8 +883,6 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
-	// This is the method executed when the player moves the smiley down and
-	// left.
 	private void DownAndLeft() {
 		if (isFence(SmileyCell.getX() - 1, SmileyCell.getY() + 1) == false) {
 			if (SmileyCell.getX() > 1 && SmileyCell.getY() < MAX_GRID_SIZE) {
@@ -945,15 +899,14 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	private void mhoMovement() {
 		/*
-		 * After the player moves the smiley, Mho movement is done by comparing
-		 * the X and Y values of each Mho. This is done by running a for loop so
-		 * that each Mho in the array which stores Mhos is accounted for and
-		 * moved. After calculating the direction that the Mho must move, the X
-		 * and Y values are changed accordingly and then checked for collision
-		 * with fences.
+		 * After player moves, mho movement is done in accordance to smiley
+		 * coordinates. Afterwards, mho coordinates must be detected for
+		 * collision.
 		 */
+
 		for (int i = 0; i < MhoCell.length; i++) {
 			int tempX = 0;
+
 			int tempY = 0;
 			// If a Mho is directly horizontal or vertical to you, the Mho MUST
 			// move directly towards you one square.
@@ -1128,6 +1081,7 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		// Now we sweep for all the mhos that moved onto fences, and kill them.
 		killMhos();
+
 	}
 
 	/*
@@ -1145,41 +1099,37 @@ public class GameFrame extends JComponent implements ActionListener {
 	private boolean isFence(int x, int y, int CellLength) {
 		for (int i = 0; i < CellLength; i++) {
 			if (FenceCell[i].getX() == x && FenceCell[i].getY() == y) {
+
 				return true;
+
 			}
+
 		}
+
 		return false;
 	}
 
-	/*
-	 * isMho searches for the value pair x and y in the MhoCell array up to the
-	 * element designated by CellLength. CellLength is used so only assigned
-	 * values are searched during initialization.
-	 */
 	private boolean isMho(int x, int y, int CellLength) {
 		for (int i = 0; i < CellLength; i++) {
+
 			if (MhoCell[i].getX() == x && MhoCell[i].getY() == y) {
+
 				return true;
+
 			}
+
 		}
+
 		return false;
 	}
 
-	/*
-	 * The method actionPerformed holds the cases that will be run when a key is
-	 * pressed. The methods increases or decreases an X and/or Y value of the
-	 * smiley, prints a line of text to the console, and sets the player turn to
-	 * end while also initiating Mho movement.
-	 * 
-	 * @see
-	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
 	public void actionPerformed(ActionEvent e) {
 		if (!ingame) {
 			return;
 		}
+
 		switch (SmileyDirection) {
-		// This case is for when the smiley is moved down.
+
 		case DOWN:
 
 			SmileyCell.setY(SmileyCell.getY() + 1);
@@ -1191,7 +1141,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved left.
+
 		case LEFT:
 
 			SmileyCell.setX(SmileyCell.getX() - 1);
@@ -1203,7 +1153,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved right.
+
 		case RIGHT:
 
 			SmileyCell.setX(SmileyCell.getX() + 1);
@@ -1215,7 +1165,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved up.
+
 		case UP:
 
 			SmileyCell.setY(SmileyCell.getY() - 1);
@@ -1227,7 +1177,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved up and left.
+
 		case UPANDLEFT:
 
 			SmileyCell.setX(SmileyCell.getX() - 1);
@@ -1240,7 +1190,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved up and right.
+
 		case UPANDRIGHT:
 
 			SmileyCell.setX(SmileyCell.getX() + 1);
@@ -1253,7 +1203,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved down and right.
+
 		case DOWNANDRIGHT:
 
 			SmileyCell.setX(SmileyCell.getX() + 1);
@@ -1266,7 +1216,6 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the smiley is moved down and left.
 		case DOWNANDLEFT:
 
 			SmileyCell.setX(SmileyCell.getX() - 1);
@@ -1279,9 +1228,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-		// This case is for when the player jumps. It randomly creates
-		// coordinates and sets the smiley to that poisiton. This case does not
-		// end the player turn.
+
 		case JUMP:
 			int jumpX = RandomNumberInRange(1, 12);
 			int jumpY = RandomNumberInRange(1, 12);
@@ -1299,8 +1246,7 @@ public class GameFrame extends JComponent implements ActionListener {
 			SmileyDirection = Direction.NONE;
 
 			break;
-		// This case is for when the player sits, or ends the turn without any
-		// movement.
+
 		case SIT:
 			SmileyCell.setY(SmileyCell.getY());
 			SmileyCell.setX(SmileyCell.getX());
@@ -1312,7 +1258,6 @@ public class GameFrame extends JComponent implements ActionListener {
 			mhoMovement();
 
 			break;
-
 		case NONE:
 
 			break;
@@ -1324,14 +1269,11 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 
 	}
-
-	// To remove the Mhos, this method removes specific elements from the array.
-	// Because
-	// we didn't use ArrayList, we had to find a shortcut that allows us to
-	// remove
-	// specific elements. So, when a Mho hits a fence, it creates a temporary
-	// cell,
-	// then makes the MhoCell equal the temporary array.
+	
+	// To remove the Mhos, this method removes specific elements from the array. Because 
+	// we didn't use ArrayList, we had to find a shortcut that allows us to remove 
+	// specific elements. So, when a Mho hits a fence, it creates a temporary cell, 
+	// then makes the MhoCell equal the temporary array. 
 	public void killMhos() {
 		// Delete mho from fence
 		System.out.println("The mho cell array is " + MhoCell.length + " long");
@@ -1357,18 +1299,17 @@ public class GameFrame extends JComponent implements ActionListener {
 				+ MhoCell.length + " long");
 		// If there are no Mhos left, then the handleWin is invoked,
 		// showing a specific dialogue box to allow the user to restart
-		// or end.
+		// or end. 
 
 		if (MhoCell.length == 0) {
-			// No mho lefts
+			// No mho lefts 
 			handleWin();
 			System.out.println("You won the game!");
 		}
 	}
 
 	public void handleWin() {
-		// Display the showOptionDialog. This is the dialogue box when the user
-		// wins
+		// Display the showOptionDialog. This is the dialogue box when the user wins 
 		int choice = JOptionPane.showOptionDialog(null,
 				"You win! Do you want to play again?", "You Won!",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
@@ -1383,8 +1324,7 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	public void handleLoseMho() {
-		// Display the showOptionDialog. This dialogue pops up when the player
-		// loses to a mho.
+		// Display the showOptionDialog. This dialogue pops up when the player loses to a mho. 
 		int choice = JOptionPane.showOptionDialog(null,
 				"You were killed by a mho. Do you want to play again?",
 				"You Lose", JOptionPane.YES_NO_OPTION,
@@ -1399,11 +1339,13 @@ public class GameFrame extends JComponent implements ActionListener {
 	}
 
 	public void handleLoseFence() {
-		// Display the showOptionDialog. This dialogue pops up when you die.
-		int choice = JOptionPane.showOptionDialog(null,
-				"You moved onto a fence and died. Do you want to play again?",
-				"You Lose", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, null, null);
+		// Display the showOptionDialog. This dialogue pops up when you die. 
+		int choice = JOptionPane
+				.showOptionDialog(
+						null,
+						"You moved onto a fence and died. Do you want to play again?",
+						"You Lose", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null, null, null);
 
 		// Interpret the choice of the user
 		if (choice == JOptionPane.YES_OPTION) {
@@ -1413,18 +1355,17 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 	}
 
-	// This method invokes the methods that draw the cells (Mhos, Fences, etc.)
-	// and the grid.
+	// This method invokes the methods that draw the cells (Mhos, Fences, etc.) 
+	// and the grid. 
 	public void paintComponent(Graphics g) {
 
 		drawGrid(g);
 		drawCellTypes(g);
 
 	}
-
-	// The drawGrid method draws the Grid by drawing the lines of the Grid, then
-	// spawning
-	// the empty cells in their specific location.
+	
+	// The drawGrid method draws the Grid by drawing the lines of the Grid, then spawning
+	// the empty cells in their specific location. 
 	void drawGrid(Graphics g) {
 
 		g.setColor(GRID_COLOR);
