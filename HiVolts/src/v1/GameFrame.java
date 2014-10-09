@@ -43,6 +43,7 @@ public class GameFrame extends JComponent implements ActionListener {
 	// The reason the value is 12 because the outside boundaries of the grid
 	// contain fences.
 
+	private static final int MIN_GRID_SIZE = 1;
 	private static final int MAX_GRID_SIZE = 12;
 
 	// This creates an object from the Timer Library. This allows to
@@ -151,8 +152,9 @@ public class GameFrame extends JComponent implements ActionListener {
 		setSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 		repaint();
 		
-		// This creates sets the initial coordinates of the cell types (Smiley, Mho, Fence)
-		// using the initCells() and initPositions() method. 
+		// This sets the initial coordinates of the cell types (Smiley, Mho, Fence)
+		// using the initCells() and initPositions() method. InitCells() also creates the
+		// "empty" cells. 
 		initCells();
 		initPositions();
 
@@ -464,26 +466,28 @@ public class GameFrame extends JComponent implements ActionListener {
 
 	}
 
+	// InitCells method sets the Grid Cells to Black without any images. These will
+	// be the "empty" cells. 
+	
 	public void initCells() {
 
 		for (int row = 0; row < ROWS; row++) {
-
 			for (int col = 0; col < COLS; col++) {
-
 				cell[row][col] = new Cell(row, col, Color.BLACK, null);
 
 			}
-
 		}
-
 	}
-
+	
+	// The initPositions method adds elements to all of the Fence arrays,
+	// Mho arrays, and Fence arrays. 
 	public void initPositions() {
 
 		bottomOutsideCell = new Cell[13];
 
 		for (int i = 0; i < bottomOutsideCell.length; i++) {
-
+			// Accesses all of the elements, sets positions from (i(0-13), 13), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at bottom. 
 			bottomOutsideCell[i] = new Cell(i, 13, null, readImage("Fence.png"));
 
 		}
@@ -491,7 +495,8 @@ public class GameFrame extends JComponent implements ActionListener {
 		rightOutsideCell = new Cell[14];
 
 		for (int i = 0; i < rightOutsideCell.length; i++) {
-
+			// Accesses all of the elements, sets positions from (13, i(0-13)), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at right.  
 			rightOutsideCell[i] = new Cell(13, i, null, readImage("Fence.png"));
 
 		}
@@ -499,7 +504,8 @@ public class GameFrame extends JComponent implements ActionListener {
 		leftOutsideCell = new Cell[14];
 
 		for (int i = 0; i < leftOutsideCell.length; i++) {
-
+			// Accesses all of the elements, sets positions from (0, i(0-13)), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at left.
 			leftOutsideCell[i] = new Cell(0, i, null, readImage("Fence.png"));
 
 		}
@@ -507,20 +513,23 @@ public class GameFrame extends JComponent implements ActionListener {
 		topOutsideCell = new Cell[14];
 
 		for (int i = 0; i < topOutsideCell.length; i++) {
-
+			// Accesses all of the elements, sets positions from (i(0-13),0), and adds 
+			// image "Fence.png". Creates row of fences in outside boundary at top. 
 			topOutsideCell[i] = new Cell(i, 0, null, readImage("Fence.png"));
 
 		}
 
+		// This is for debugging code, Coordinates of Hivolts. 
 		System.out.println("COORDINATES OF HIVOLTS");
 
-		// Now let's place 20 fence cells
+		// Now let's place 20 fence cells randomly on the grid.
 		FenceCell = new Cell[20];
 
 		for (int i = 0; i < FenceCell.length; i++) {
-
+			// Using the RandomNumberInRange to find random number from
+			// Min Grid to Max Grid Size.
+			
 			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
 			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
 
 			/*
@@ -531,9 +540,6 @@ public class GameFrame extends JComponent implements ActionListener {
 			 * However, Mhos can be generated on top of the fences. So I need to
 			 * implement this same collision detection but with the Mhos.
 			 */
-			System.out.println("Fence " + i + " may have coordinates of: (" + x
-					+ "," + y + ")");
-
 			/*
 			 * What this while loop does is check if isFence is returning true
 			 * with arguments of the x and y coordinates above (with i giving us
@@ -545,68 +551,80 @@ public class GameFrame extends JComponent implements ActionListener {
 			 * new x and y coordinates until it returns false.
 			 */
 
+			// This checks that the Fence Cell 
 			while (isFence(x, y, i)) {
 
-				x = RandomNumberInRange(1, MAX_GRID_SIZE);
-
-				y = RandomNumberInRange(1, MAX_GRID_SIZE);
+				x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
+				y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
 				System.out.println("Fence " + i + " may have coordinates of: ("
 						+ x + "," + y + ")");
 			}
-
+			// Debugging. 
 			FenceCell[i] = new Cell(x, y, null, readImage("Fence.png"));
 			System.out.println("New Fence " + i + " has coordinates of: (" + x
 					+ "," + y + ")");
 
 		}
 
-		// Now let's place 12 mho cells
+		// These for loops places 12 Mho cells. This first randomly spawns 
+		// the Mhos, but also checks that there is no overlap with other 
+		// cell types. 
 		MhoCell = new Cell[12];
 
 		for (int i = 0; i < MhoCell.length; i++) {
 
-			int x = RandomNumberInRange(1, MAX_GRID_SIZE);
+			int x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
-			int y = RandomNumberInRange(1, MAX_GRID_SIZE);
+			int y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
+			// Debugging. 
 			System.out.println("Mho " + i + " may have coordinates of: (" + x
 					+ "," + y + ")");
 
 			while (isFence(x, y) || isMho(x, y, i)) {
 
-				x = RandomNumberInRange(1, MAX_GRID_SIZE);
+				x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
-				y = RandomNumberInRange(1, MAX_GRID_SIZE);
+				y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
 				System.out.println("Mho " + i + " may have coordinates of: ("
 						+ x + "," + y + ")");
 			}
 
+			// Debugging. 
 			MhoCell[i] = new Cell(x, y, null, readImage("Mho.png"));
 			System.out.println("New Mho " + i + " has coordinates of: (" + x
 					+ "," + y + ")");
 		}
 
-		// Now let's place the only Smiley :)(
-		int x = RandomNumberInRange(1, MAX_GRID_SIZE);
+		// Now let's place the only Smiley :)
+		
+		// This randomly spawns the Smiley and uses the isFence and isMho methods
+		// to check if there is overlap. 
+		int x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
-		int y = RandomNumberInRange(1, MAX_GRID_SIZE);
+		int y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
 		while (isFence(x, y) || isMho(x, y, MhoCell.length)) {
 
-			x = RandomNumberInRange(1, MAX_GRID_SIZE);
+			x = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
-			y = RandomNumberInRange(1, MAX_GRID_SIZE);
+			y = RandomNumberInRange(MIN_GRID_SIZE, MAX_GRID_SIZE);
 
 		}
-
+		
+		// Debugging. 
 		SmileyCell = new Cell(x, y, null, readImage("Smiley.png"));
 		System.out.println("Smiley has coordinates of: (" + x + " and " + y
 				+ ")");
 
 	}
-
+	
+	// To get the images from the root folder, we used a readImage method 
+	// that finds the image. It also catches any exceptions as to not 
+	// crash the program. 
+	
 	private BufferedImage readImage(String name) {
 		BufferedImage img = null;
 		try {
@@ -618,7 +636,9 @@ public class GameFrame extends JComponent implements ActionListener {
 		}
 		return img;
 	}
-
+	
+	// Previous code for readImage that finds image in the bin folder 
+	
 	/*
 	 * private BufferedImage readImage(String name) { BufferedImage img = null;
 	 * try { InputStream stream = getClass().getResourceAsStream(name); if
@@ -628,6 +648,9 @@ public class GameFrame extends JComponent implements ActionListener {
 	 * " not found - exception"); } System.out.println("Classpath is: " +
 	 * System.getProperty("java.class.path")); return img; }
 	 */
+	
+	// This method calculates a random number from 1 to 12 to find 
+	// 
 	private int RandomNumberInRange(int start, int end) {
 
 		double randd = Math.random();
